@@ -1,15 +1,69 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Home</title>
+    <title>Vibecode</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <script defer src="/assets/js/main.js"></script>
   </head>
   <body>
-    <h1>It works 🎉</h1>
-    <p>This site is deployed using Cloudflare Pages.</p>
-    <p><a href="/about/">About</a></p>
+    <header>
+      <div class="container">
+        <a href="/" class="site-title">Vibecode</a>
+        <nav>
+          <a href="/about/">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1 class="page-heading">Posts</h1>
+      <ul class="post-list" id="post-list">
+        <li class="loading">Loading posts...</li>
+      </ul>
+    </main>
+
+    <footer>
+      <p>A blog about vibe coding with AI.</p>
+    </footer>
+
+    <script>
+      async function loadPosts() {
+        const list = document.getElementById('post-list');
+        try {
+          const res = await fetch('/posts/index.json');
+          if (!res.ok) throw new Error('Failed to load posts');
+          const posts = await res.json();
+
+          if (posts.length === 0) {
+            list.innerHTML = '<li class="loading">No posts yet.</li>';
+            return;
+          }
+
+          list.innerHTML = posts.map(post => `
+            <li>
+              <a href="/post/?slug=${encodeURIComponent(post.slug)}">
+                <p class="post-title">${escapeHtml(post.title)}</p>
+                <p class="post-meta">${formatDate(post.date)}</p>
+                ${post.description ? `<p class="post-description">${escapeHtml(post.description)}</p>` : ''}
+              </a>
+            </li>
+          `).join('');
+        } catch (err) {
+          list.innerHTML = '<li class="error">Could not load posts.</li>';
+        }
+      }
+
+      function formatDate(dateStr) {
+        const d = new Date(dateStr + 'T00:00:00');
+        return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+      }
+
+      function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      loadPosts();
+    </script>
   </body>
 </html>

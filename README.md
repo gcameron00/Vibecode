@@ -2,35 +2,68 @@
 
 A simple blog documenting my journey with AI-based vibe coding.
 
-## About
-
-This blog chronicles my experiences using AI tools to build software through vibe coding — describing what I want and letting AI do the heavy lifting.
-
-## Tech Stack
-
-- Static HTML/CSS
-- Deployed on [Cloudflare Pages](https://pages.cloudflare.com/)
-
 ## Structure
 
 ```
 /
-├── index.html          # Home page
+├── index.html              # Homepage — lists posts dynamically
+├── post/
+│   └── index.html          # Single post renderer (/post/?slug=my-post)
 ├── about/
-│   └── index.html      # About page
+│   └── index.html          # About page
+├── posts/
+│   ├── index.json          # Post manifest (source of truth for listing)
+│   └── hello-world.md      # Post files (one .md per post)
 └── assets/
     └── css/
-        └── styles.css  # Global styles
+        └── styles.css
 ```
 
-## Local Development
+## Writing a post
 
-Open `index.html` in a browser, or serve the files with any static file server:
+1. Create a markdown file in `posts/`:
+
+   ```
+   posts/my-post-slug.md
+   ```
+
+   Optionally include frontmatter (it will be stripped before rendering):
+
+   ```markdown
+   ---
+   title: My Post Title
+   date: 2026-03-07
+   description: A short summary shown on the homepage.
+   ---
+
+   Post content here...
+   ```
+
+2. Add an entry to `posts/index.json`:
+
+   ```json
+   {
+     "slug": "my-post-slug",
+     "title": "My Post Title",
+     "date": "2026-03-07",
+     "description": "A short summary shown on the homepage."
+   }
+   ```
+
+Posts are listed on the homepage in the order they appear in `posts/index.json`, so put the newest at the top.
+
+## Tech
+
+- Static HTML/CSS, no build step
+- Markdown rendered client-side with [marked](https://marked.js.org/)
+- Deployed on [Cloudflare Pages](https://pages.cloudflare.com/)
+
+## Local development
+
+Serve the root directory with any static file server:
 
 ```bash
 npx serve .
 ```
 
-## Deployment
-
-The site is automatically deployed via Cloudflare Pages on push to `main`.
+Then open `http://localhost:3000`.
