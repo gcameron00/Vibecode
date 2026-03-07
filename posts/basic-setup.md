@@ -57,7 +57,7 @@ Once everything is in place:
 2. Add a `README.md` file to it
 3. Use GitHub Desktop to sync (clone) the repo to your local machine
 4. Open the folder in VS Code
-5. Ask GitHub Copilot to turn it into a basic modern website
+5. Ask GitHub Copilot to turn it into a basic modern website without using any frameworks
 6. Commit and sync the files back to GitHub using GitHub Desktop
 7. In Cloudflare, create a Pages project and connect it to your GitHub repo
 
