@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Node / build artifacts (safe to include even if unused)
+node_modules/
+dist/
+build/
+
+# Editor settings
+.vscode/
