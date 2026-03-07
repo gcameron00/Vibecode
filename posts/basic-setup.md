@@ -4,7 +4,7 @@ date: 2026-03-07
 description: The tools you need and the steps to get your first AI-assisted website live from scratch.
 ---
 
-Here's what I put in place to get a vibe coded website live, starting from nothing. This isn't a deep tutorial — just an honest account of the tools involved and the order that made sense.
+Here's what I put in place to get a vibe coded website live, starting from nothing. This isn't a deep tutorial — just an account of the tools involved and the order that made sense.
 
 ## What you need
 
