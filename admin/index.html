@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin | Vibecode</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+
+      :root {
+        --bg: #ffffff;
+        --surface: #f9fafb;
+        --text: #1a1a1a;
+        --muted: #6b7280;
+        --accent: #2563eb;
+        --accent-hover: #1d4ed8;
+        --border: #e5e7eb;
+        --error: #dc2626;
+        --success: #16a34a;
+        --max-width: 760px;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 0;
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      header {
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .site-title {
+        font-weight: 700;
+        font-size: 1rem;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .admin-label {
+        font-size: 0.8125rem;
+        color: var(--muted);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 0.2em 0.6em;
+      }
+
+      .container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 0 0 2rem;
+      }
+
+      /* Form */
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+
+      label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.375rem;
+        color: var(--text);
+      }
+
+      .label-hint {
+        font-weight: 400;
+        color: var(--muted);
+        margin-left: 0.375rem;
+      }
+
+      input[type="text"],
+      input[type="date"],
+      input[type="password"],
+      textarea {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 0.9375rem;
+        font-family: inherit;
+        color: var(--text);
+        background: var(--bg);
+        outline: none;
+        transition: border-color 0.15s;
+      }
+
+      input:focus, textarea:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 360px;
+        font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+        font-size: 0.875rem;
+        line-height: 1.6;
+      }
+
+      .slug-preview {
+        font-size: 0.8125rem;
+        color: var(--muted);
+        margin-top: 0.375rem;
+      }
+
+      .slug-preview code {
+        font-family: 'Menlo', 'Monaco', monospace;
+        background: var(--surface);
+        padding: 0.1em 0.35em;
+        border-radius: 3px;
+        font-size: 0.875em;
+      }
+
+      /* Buttons */
+      .button-row {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        margin-top: 1.75rem;
+      }
+
+      button {
+        padding: 0.5625rem 1.25rem;
+        border-radius: 6px;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: background 0.15s, opacity 0.15s;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .btn-primary:hover { background: var(--accent-hover); }
+      .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+      .btn-secondary {
+        background: var(--surface);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .btn-secondary:hover { background: var(--border); }
+
+      /* Status */
+      .status {
+        margin-top: 1.25rem;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9375rem;
+        display: none;
+      }
+
+      .status.success {
+        background: #f0fdf4;
+        color: var(--success);
+        border: 1px solid #bbf7d0;
+        display: block;
+      }
+
+      .status.error {
+        background: #fef2f2;
+        color: var(--error);
+        border: 1px solid #fecaca;
+        display: block;
+      }
+
+      /* Settings panel */
+      .settings-panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.25rem;
+        margin-bottom: 2rem;
+      }
+
+      .settings-panel summary {
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        color: var(--muted);
+        user-select: none;
+      }
+
+      .settings-panel summary:hover { color: var(--text); }
+
+      .settings-fields {
+        margin-top: 1rem;
+        display: grid;
+        gap: 0.875rem;
+      }
+
+      .settings-note {
+        font-size: 0.8125rem;
+        color: var(--muted);
+        margin-top: 0.5rem;
+      }
+
+      .settings-note a { color: var(--accent); }
+
+      /* Divider */
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 2rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="site-title">Vibecode</a>
+      <span class="admin-label">Admin</span>
+    </header>
+
+    <main class="container">
+      <h1>New Post</h1>
+
+      <!-- Settings -->
+      <details class="settings-panel" id="settings-panel">
+        <summary>GitHub Settings</summary>
+        <div class="settings-fields">
+          <div class="form-group" style="margin:0">
+            <label>Personal Access Token <span class="label-hint">(stored in browser)</span></label>
+            <input type="password" id="gh-token" placeholder="ghp_..." />
+            <p class="settings-note">
+              Needs <strong>Contents: Read &amp; Write</strong> permission.
+              <a href="https://github.com/settings/personal-access-tokens/new" target="_blank">Create a fine-grained token</a>
+            </p>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Repository</label>
+            <input type="text" id="gh-repo" placeholder="owner/repo" />
+          </div>
+          <button class="btn-secondary" onclick="saveSettings()" style="width:fit-content">Save settings</button>
+        </div>
+      </details>
+
+      <!-- Post form -->
+      <form id="post-form" onsubmit="publishPost(event)">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" placeholder="My Post Title" required oninput="updateSlug()" />
+          <p class="slug-preview">Slug: <code id="slug-display">my-post-title</code></p>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input type="date" id="date" required />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description <span class="label-hint">(shown on homepage)</span></label>
+          <input type="text" id="description" placeholder="A short summary of the post." />
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+          <label for="body">Body <span class="label-hint">(markdown)</span></label>
+          <textarea id="body" placeholder="Write your post in markdown..." required></textarea>
+        </div>
+
+        <div class="button-row">
+          <button type="submit" class="btn-primary" id="publish-btn">Publish</button>
+          <button type="button" class="btn-secondary" onclick="clearForm()">Clear</button>
+        </div>
+      </form>
+
+      <div class="status" id="status"></div>
+    </main>
+
+    <script>
+      const STORAGE_KEY = 'vibecode_admin';
+
+      // --- Settings ---
+
+      function loadSettings() {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        if (saved.token) document.getElementById('gh-token').value = saved.token;
+        document.getElementById('gh-repo').value = saved.repo || 'gcameron00/Vibecode';
+        if (saved.token && saved.repo) {
+          document.getElementById('settings-panel').removeAttribute('open');
+        } else {
+          document.getElementById('settings-panel').setAttribute('open', '');
+        }
+      }
+
+      function saveSettings() {
+        const token = document.getElementById('gh-token').value.trim();
+        const repo = document.getElementById('gh-repo').value.trim();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ token, repo }));
+        document.getElementById('settings-panel').removeAttribute('open');
+        showStatus('Settings saved.', 'success');
+      }
+
+      function getSettings() {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      }
+
+      // --- Slug ---
+
+      function toSlug(title) {
+        return title
+          .toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, '')
+          .trim()
+          .replace(/\s+/g, '-')
+          .replace(/-+/g, '-');
+      }
+
+      function updateSlug() {
+        const title = document.getElementById('title').value;
+        document.getElementById('slug-display').textContent = toSlug(title) || 'my-post-title';
+      }
+
+      // --- GitHub API ---
+
+      async function ghGet(token, repo, path) {
+        const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+          headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' }
+        });
+        if (!res.ok) throw new Error(`GitHub GET failed: ${res.status} ${res.statusText}`);
+        return res.json();
+      }
+
+      async function ghPut(token, repo, path, content, message, sha) {
+        const body = { message, content: btoa(unescape(encodeURIComponent(content))) };
+        if (sha) body.sha = sha;
+        const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `token ${token}`,
+            Accept: 'application/vnd.github+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || `GitHub PUT failed: ${res.status}`);
+        }
+        return res.json();
+      }
+
+      // --- Publish ---
+
+      async function publishPost(e) {
+        e.preventDefault();
+
+        const { token, repo } = getSettings();
+        if (!token || !repo) {
+          showStatus('Please fill in your GitHub settings above first.', 'error');
+          document.getElementById('settings-panel').setAttribute('open', '');
+          return;
+        }
+
+        const title       = document.getElementById('title').value.trim();
+        const date        = document.getElementById('date').value;
+        const description = document.getElementById('description').value.trim();
+        const body        = document.getElementById('body').value;
+        const slug        = toSlug(title);
+
+        if (!slug) { showStatus('Could not generate a slug from the title.', 'error'); return; }
+
+        const btn = document.getElementById('publish-btn');
+        btn.disabled = true;
+        btn.textContent = 'Publishing...';
+        clearStatus();
+
+        try {
+          // 1. Build markdown file content
+          const mdContent = `---\ntitle: ${title}\ndate: ${date}\n${description ? `description: ${description}\n` : ''}---\n\n${body}`;
+
+          // 2. Create the .md file (no SHA needed for new files)
+          await ghPut(token, repo, `posts/${slug}.md`, mdContent, `Add post: ${title}`);
+
+          // 3. Fetch current index.json (need SHA to update it)
+          let currentPosts = [];
+          let indexSha = null;
+          try {
+            const indexFile = await ghGet(token, repo, 'posts/index.json');
+            indexSha = indexFile.sha;
+            currentPosts = JSON.parse(decodeURIComponent(escape(atob(indexFile.content.replace(/\n/g, '')))));
+          } catch (err) {
+            // index.json doesn't exist yet — that's fine, we'll create it
+          }
+
+          // 4. Prepend new entry
+          const newEntry = { slug, title, date };
+          if (description) newEntry.description = description;
+          const updatedPosts = [newEntry, ...currentPosts.filter(p => p.slug !== slug)];
+
+          // 5. Update index.json
+          await ghPut(token, repo, 'posts/index.json', JSON.stringify(updatedPosts, null, 2) + '\n', `Update post index: add ${slug}`, indexSha);
+
+          showStatus(`Post published. Cloudflare will redeploy in a moment.`, 'success');
+          clearForm();
+        } catch (err) {
+          showStatus(`Error: ${err.message}`, 'error');
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Publish';
+        }
+      }
+
+      // --- Helpers ---
+
+      function clearForm() {
+        document.getElementById('title').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('body').value = '';
+        document.getElementById('slug-display').textContent = 'my-post-title';
+        setTodayDate();
+      }
+
+      function setTodayDate() {
+        const today = new Date().toISOString().slice(0, 10);
+        document.getElementById('date').value = today;
+      }
+
+      function showStatus(msg, type) {
+        const el = document.getElementById('status');
+        el.textContent = msg;
+        el.className = `status ${type}`;
+      }
+
+      function clearStatus() {
+        const el = document.getElementById('status');
+        el.className = 'status';
+      }
+
+      // Init
+      loadSettings();
+      setTodayDate();
+    </script>
+  </body>
+</html>
