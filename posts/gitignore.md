@@ -1,1 +1,0 @@
-Just started adding gitignore files in the root of my repos. This came about due to a ChatGPT conversation. Makes sense to keep certain files form syncing, although somehow this feels like a kludge.
