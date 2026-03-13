@@ -58,6 +58,14 @@ nav a {
 
 nav a:hover { color: var(--text); }
 
+.rss-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+}
+
+.rss-link:hover { color: #f26522; }
+
 /* Post list */
 .post-list {
   list-style: none;
