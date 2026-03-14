@@ -215,6 +215,14 @@ nav a:hover { color: var(--text); }
 
 .back-link:hover { color: var(--text); }
 
+/* Homepage tagline */
+.site-tagline {
+  text-align: center;
+  font-size: 0.9375rem;
+  color: var(--muted);
+  margin: 0 0 2.5rem;
+}
+
 /* Page heading */
 .page-heading {
   font-size: 2rem;
@@ -273,45 +281,29 @@ footer {
   flex-shrink: 0;
 }
 
-.header-bar-title {
+/* Single title — centred in header bar, shrinks on scroll */
+.site-title-center {
   flex: 1;
   text-align: center;
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
   color: var(--text);
-  letter-spacing: -0.01em;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
+  text-decoration: none;
   white-space: nowrap;
+  transition: font-size 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#site-header.header--collapsed .header-bar-title {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.header-hero {
-  overflow: hidden;
-  max-height: 140px;
-  opacity: 1;
-  display: flex;
-  justify-content: center;
-  padding: 0.25rem 1.5rem 2rem;
-  transition: max-height 0.45s ease, opacity 0.3s ease, padding 0.45s ease;
-}
-
-#site-header.header--collapsed .header-hero {
-  max-height: 0;
-  opacity: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+#site-header.header--collapsed .site-title-center {
+  font-size: 1rem;
 }
 
 /* V mark large in expanded state */
 #site-header .v-mark {
   width: 72px;
   height: 51px;
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1), height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #site-header.header--collapsed .v-mark {
@@ -319,19 +311,7 @@ footer {
   height: 26px;
 }
 
-/* Hero title */
-.site-title-large {
-  font-size: clamp(1.875rem, 6vw, 2.5rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  color: var(--text);
-  text-decoration: none;
-  display: block;
-  text-align: center;
-}
-
-/* "Vibes" gradient text with load shimmer */
+/* "Vibes" gradient text with load shimmer, fades to plain on scroll */
 .vibes-word {
   background: linear-gradient(90deg, #e879f9 0%, #818cf8 50%, #38bdf8 100%);
   background-size: 200% auto;
@@ -339,6 +319,11 @@ footer {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: text-shimmer 2s ease-out forwards;
+  transition: -webkit-text-fill-color 0.45s ease;
+}
+
+#site-header.header--collapsed .vibes-word {
+  -webkit-text-fill-color: var(--text);
 }
 
 @keyframes text-shimmer {

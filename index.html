@@ -10,7 +10,6 @@
   </head>
   <body>
     <header id="site-header" class="header--expanded">
-      <!-- Top bar: V mark (left), site name when collapsed (centre), nav (right) -->
       <div class="header-bar">
         <a href="/" class="logo-mark" aria-label="All About the Vibes">
           <svg class="v-mark" viewBox="0 0 84 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -34,7 +33,7 @@
             <path d="M22,4.5 C32,40 36,52.5 40,54 C50,46 62,34 54,9" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round"/>
           </svg>
         </a>
-        <span class="header-bar-title">All About the Vibes</span>
+        <a href="/" class="site-title-center">All About the <span class="vibes-word">Vibes</span></a>
         <nav>
           <a href="/about/">About</a>
           <a href="/feed.xml" class="rss-link" title="RSS Feed" aria-label="RSS Feed">
@@ -44,13 +43,10 @@
           </a>
         </nav>
       </div>
-      <!-- Hero title — visible when expanded, collapses on scroll -->
-      <div class="header-hero">
-        <a href="/" class="site-title-large">All About the <span class="vibes-word">Vibes</span></a>
-      </div>
     </header>
 
     <main class="container">
+      <p class="site-tagline">A blog about my journey with AI-assisted vibe coding.</p>
       <h1 class="page-heading">Posts</h1>
       <ul class="post-list" id="post-list">
         <li class="loading">Loading posts...</li>
@@ -104,7 +100,7 @@
       (function () {
         var header = document.getElementById('site-header');
         window.addEventListener('scroll', function () {
-          if (window.scrollY > 30) {
+          if (window.scrollY > 60) {
             header.classList.add('header--collapsed');
             header.classList.remove('header--expanded');
           } else {
