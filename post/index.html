@@ -79,7 +79,7 @@
           const markdown = await mdRes.text();
 
           // Strip frontmatter if present
-          const content = markdown.replace(/^---[\s\S]*?---\n/, '');
+          const content = markdown.replace(/^---[\s\S]*?---\r?\n/, '');
 
           const title = meta?.title || slug;
           const date = meta?.date ? formatDate(meta.date) : '';
