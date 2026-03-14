@@ -64,6 +64,11 @@ function buildFeed(origin, posts) {
     <description>${xmlEscape(siteDescription)}</description>
     <language>en</language>
     <atom:link href="${feedUrl}" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>${origin}/favicon.png</url>
+      <title>${xmlEscape(siteTitle)}</title>
+      <link>${origin}</link>
+    </image>
     ${items}
   </channel>
 </rss>`;
