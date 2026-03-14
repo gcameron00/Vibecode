@@ -3,14 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Post | Vibecode</title>
+    <title>Post | All About the Vibes</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="alternate" type="application/rss+xml" title="Vibecode" href="/feed.xml">
+    <link rel="alternate" type="application/rss+xml" title="All About the Vibes" href="/feed.xml">
   </head>
   <body>
     <header>
       <div class="container">
-        <a href="/" class="site-title">Vibecode</a>
+        <a href="/" class="site-title" aria-label="All About the Vibes">
+          <svg class="v-mark" viewBox="0 0 48 34" width="36" height="26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="vg" x1="0" y1="0" x2="48" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#e879f9"/>
+                <stop offset="50%" stop-color="#818cf8"/>
+                <stop offset="100%" stop-color="#38bdf8"/>
+              </linearGradient>
+            </defs>
+            <path d="M2,0 C2,19.5 24,30 24,30 C24,30 46,19.5 46,0" stroke="url(#vg)" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M4.5,0 C4.5,17.9 24,27.5 24,27.5 C24,27.5 43.5,17.9 43.5,0" stroke="url(#vg)" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M7,0 C7,16.25 24,25 24,25 C24,25 41,16.25 41,0" stroke="url(#vg)" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M9.5,0 C9.5,14.6 24,22.5 24,22.5 C24,22.5 38.5,14.6 38.5,0" stroke="url(#vg)" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M12,0 C12,13 24,20 24,20 C24,20 36,13 36,0" stroke="url(#vg)" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M14.5,0 C14.5,11.4 24,17.5 24,17.5 C24,17.5 33.5,11.4 33.5,0" stroke="url(#vg)" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M17,0 C17,9.75 24,15 24,15 C24,15 31,9.75 31,0" stroke="url(#vg)" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M19.5,0 C19.5,8.1 24,12.5 24,12.5 C24,12.5 28.5,8.1 28.5,0" stroke="url(#vg)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          All About the Vibes
+        </a>
         <nav>
           <a href="/about/">About</a>
           <a href="/feed.xml" class="rss-link" title="RSS Feed" aria-label="RSS Feed">
@@ -30,7 +49,7 @@
     </main>
 
     <footer>
-      <p>A blog about vibe coding with AI.</p>
+      <p>A blog about the journey with AI-assisted vibe coding.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -62,7 +81,7 @@
           const title = meta?.title || slug;
           const date = meta?.date ? formatDate(meta.date) : '';
 
-          document.title = `${title} | Vibecode`;
+          document.title = `${title} | All About the Vibes`;
 
           container.innerHTML = `
             <div class="post-header">

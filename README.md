@@ -1,6 +1,6 @@
-# Vibecode
+# All About the Vibes
 
-A simple blog documenting my journey with AI-based vibe coding.
+A blog documenting my journey with AI-based vibe coding, live at [allaboutthevibes.blog](https://allaboutthevibes.blog).
 
 ## Structure
 
@@ -56,7 +56,7 @@ Posts are listed on the homepage in the order they appear in `posts/index.json`,
 
 - Static HTML/CSS, no build step
 - Markdown rendered client-side with [marked](https://marked.js.org/)
-- Deployed on [Cloudflare Pages](https://pages.cloudflare.com/)
+- Deployed on [Cloudflare Pages](https://pages.cloudflare.com/) at [allaboutthevibes.blog](https://allaboutthevibes.blog)
 
 ## Local development
 

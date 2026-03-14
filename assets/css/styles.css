@@ -41,11 +41,24 @@ header .container {
 }
 
 .site-title {
-  font-size: 1.125rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text);
   text-decoration: none;
   letter-spacing: -0.01em;
+}
+
+.v-mark {
+  flex-shrink: 0;
+  animation: v-glow 5s ease-in-out infinite;
+}
+
+@keyframes v-glow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(232, 121, 249, 0.3)); }
+  50%       { filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.4)); }
 }
 
 nav a {

@@ -38,8 +38,8 @@ export async function onRequest({ request }) {
 // ---------------------------------------------------------------------------
 
 function buildFeed(origin, posts) {
-  const siteTitle = 'Vibecode';
-  const siteDescription = 'A blog about vibe coding with AI.';
+  const siteTitle = 'All About the Vibes';
+  const siteDescription = 'A blog about the journey with AI-assisted vibe coding.';
   const feedUrl = `${origin}/feed.xml`;
 
   const items = posts.map((post) => {
