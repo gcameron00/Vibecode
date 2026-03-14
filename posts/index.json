@@ -1,5 +1,11 @@
 [
   {
+    "slug": "adding-images",
+    "title": "Adding images",
+    "date": "2026-03-14",
+    "description": "Claude appears to struggle with including image assets"
+  },
+  {
     "slug": "just-added-rss-reader-support-to-this-blog",
     "title": "Just added RSS reader support to this blog",
     "date": "2026-03-13",
