@@ -273,18 +273,41 @@ footer {
   flex-shrink: 0;
 }
 
-.header-site-name {
+.site-title-center {
   flex: 1;
-  font-size: 1.25rem;
-  font-weight: 700;
+  text-align: center;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
   color: var(--text);
-  letter-spacing: -0.01em;
+  text-decoration: none;
   white-space: nowrap;
   transition: font-size 0.4s ease;
 }
 
-#site-header.header--collapsed .header-site-name {
+#site-header.header--collapsed .site-title-center {
   font-size: 1rem;
+}
+
+/* "Vibes" gradient text with load shimmer */
+.vibes-word {
+  background: linear-gradient(90deg, #e879f9 0%, #818cf8 50%, #38bdf8 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 2s ease-out forwards;
+  transition: -webkit-text-fill-color 0.4s ease;
+}
+
+#site-header.header--collapsed .vibes-word {
+  -webkit-text-fill-color: var(--text);
+}
+
+@keyframes text-shimmer {
+  from { background-position: 200% center; }
+  to   { background-position: 0% center; }
 }
 
 .header-hero {
