@@ -6,11 +6,10 @@
     <title>All About the Vibes</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="alternate" type="application/rss+xml" title="All About the Vibes" href="/feed.xml">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   </head>
   <body>
     <header id="site-header" class="header--expanded">
-      <!-- Top bar: V mark + site name (left), nav (right) -->
+      <!-- Top bar: V mark (left), site name when collapsed (centre), nav (right) -->
       <div class="header-bar">
         <a href="/" class="logo-mark" aria-label="All About the Vibes">
           <svg class="v-mark" viewBox="0 0 84 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -21,6 +20,7 @@
                 <stop offset="100%" stop-color="#38bdf8"/>
               </linearGradient>
             </defs>
+            <!-- Left arm leans outward; right arm has S-curve — asymmetric handwritten V -->
             <path d="M4,0 C-4,22 18,48 40,54 C68,64 80,16 72,0" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round"/>
             <path d="M6,0.5 C0,24 20,48.5 40,54 C66,62 78,18 70,1" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round"/>
             <path d="M8,1 C4,26 22,49 40,54 C64,60 76,20 68,2" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round"/>
@@ -33,7 +33,7 @@
             <path d="M22,4.5 C32,40 36,52.5 40,54 C50,46 62,34 54,9" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round"/>
           </svg>
         </a>
-        <span class="header-site-name">All About the Vibes</span>
+        <span class="header-bar-title">All About the Vibes</span>
         <nav>
           <a href="/about/">About</a>
           <a href="/feed.xml" class="rss-link" title="RSS Feed" aria-label="RSS Feed">
@@ -43,9 +43,9 @@
           </a>
         </nav>
       </div>
-      <!-- Tagline — visible when expanded, fades on scroll -->
+      <!-- Hero title — visible when expanded, collapses on scroll -->
       <div class="header-hero">
-        <p class="header-tagline">My journey with AI-assisted vibe coding.</p>
+        <a href="/" class="site-title-large">All About the <span class="vibes-word">Vibes</span></a>
       </div>
     </header>
 
@@ -57,7 +57,7 @@
     </main>
 
     <footer>
-      <p>My journey with AI-assisted vibe coding.</p>
+      <p>A blog about the journey with AI-assisted vibe coding.</p>
     </footer>
 
     <script>
