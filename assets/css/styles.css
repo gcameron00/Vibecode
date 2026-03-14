@@ -53,6 +53,9 @@ header .container {
 
 .v-mark {
   flex-shrink: 0;
+  width: 36px;
+  height: 25px;
+  transition: width 0.4s ease, height 0.4s ease;
   animation: v-glow 5s ease-in-out infinite;
 }
 
@@ -234,5 +237,112 @@ footer {
   text-align: center;
   font-size: 0.875rem;
   color: var(--muted);
+}
+
+/* ============================================================
+   Expanding homepage header
+   ============================================================ */
+
+#site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  margin-bottom: 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.35s ease;
+}
+
+#site-header.header--collapsed {
+  border-bottom-color: var(--border);
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.875rem 1.5rem;
+}
+
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.header-bar-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  white-space: nowrap;
+}
+
+#site-header.header--collapsed .header-bar-title {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.header-hero {
+  overflow: hidden;
+  max-height: 140px;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem 1.5rem 2rem;
+  transition: max-height 0.45s ease, opacity 0.3s ease, padding 0.45s ease;
+}
+
+#site-header.header--collapsed .header-hero {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* V mark large in expanded state */
+#site-header .v-mark {
+  width: 72px;
+  height: 50px;
+}
+
+#site-header.header--collapsed .v-mark {
+  width: 36px;
+  height: 25px;
+}
+
+/* Hero title */
+.site-title-large {
+  font-size: clamp(1.875rem, 6vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--text);
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+/* "Vibes" gradient text with load shimmer */
+.vibes-word {
+  background: linear-gradient(90deg, #e879f9 0%, #818cf8 50%, #38bdf8 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 2s ease-out forwards;
+}
+
+@keyframes text-shimmer {
+  from { background-position: 200% center; }
+  to   { background-position: 0% center; }
 }
 
