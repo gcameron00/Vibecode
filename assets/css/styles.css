@@ -54,7 +54,7 @@ header .container {
 .v-mark {
   flex-shrink: 0;
   width: 36px;
-  height: 25px;
+  height: 26px;
   transition: width 0.4s ease, height 0.4s ease;
   animation: v-glow 5s ease-in-out infinite;
 }
@@ -311,12 +311,12 @@ footer {
 /* V mark large in expanded state */
 #site-header .v-mark {
   width: 72px;
-  height: 50px;
+  height: 51px;
 }
 
 #site-header.header--collapsed .v-mark {
   width: 36px;
-  height: 25px;
+  height: 26px;
 }
 
 /* Hero title */
