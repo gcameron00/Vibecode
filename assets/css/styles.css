@@ -1,12 +1,24 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 :root {
-  --bg: #ffffff;
-  --text: #1a1a1a;
-  --muted: #6b7280;
-  --accent: #2563eb;
-  --border: #e5e7eb;
+  --bg:      #ffffff;
+  --text:    #1a1a1a;
+  --muted:   #6b7280;
+  --accent:  #2563eb;
+  --border:  #e5e7eb;
+  --code-bg: #f3f4f6;
   --max-width: 680px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:      #0f172a;  /* slate-900 — cool dark, not pure black */
+    --text:    #e2e8f0;  /* slate-200 — soft off-white */
+    --muted:   #94a3b8;  /* slate-400 — readable secondary text */
+    --accent:  #60a5fa;  /* blue-400  — vivid enough on dark bg */
+    --border:  #1e293b;  /* slate-800 — very subtle dividers */
+    --code-bg: #1e293b;  /* slate-800 — code/pre blocks */
+  }
 }
 
 body {
@@ -66,6 +78,13 @@ header .container {
 @keyframes v-glow {
   0%, 100% { filter: drop-shadow(0 0 2px rgba(232, 121, 249, 0.3)); }
   50%       { filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.4)); }
+}
+
+@media (prefers-color-scheme: dark) {
+  @keyframes v-glow {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(232, 121, 249, 0.55)); }
+    50%       { filter: drop-shadow(0 0 9px rgba(56, 189, 248, 0.65)); }
+  }
 }
 
 nav a {
@@ -163,13 +182,13 @@ nav a:hover { color: var(--text); }
 .prose code {
   font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
   font-size: 0.875em;
-  background: #f3f4f6;
+  background: var(--code-bg);
   padding: 0.15em 0.4em;
   border-radius: 4px;
 }
 
 .prose pre {
-  background: #f3f4f6;
+  background: var(--code-bg);
   border-radius: 8px;
   padding: 1.25rem;
   overflow-x: auto;
