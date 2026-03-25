@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Admin | All About the Vibes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
     <style>
       *, *::before, *::after { box-sizing: border-box; }
 
@@ -17,7 +18,7 @@
         --border: #e5e7eb;
         --error: #dc2626;
         --success: #16a34a;
-        --max-width: 760px;
+        --max-width: 860px;
       }
 
       body {
@@ -67,7 +68,6 @@
         margin: 0 0 2rem;
       }
 
-      /* Form */
       .form-group {
         margin-bottom: 1.25rem;
       }
@@ -88,8 +88,7 @@
 
       input[type="text"],
       input[type="date"],
-      input[type="password"],
-      textarea {
+      input[type="password"] {
         width: 100%;
         padding: 0.5rem 0.75rem;
         border: 1px solid var(--border);
@@ -102,17 +101,9 @@
         transition: border-color 0.15s;
       }
 
-      input:focus, textarea:focus {
+      input:focus {
         border-color: var(--accent);
         box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-      }
-
-      textarea {
-        resize: vertical;
-        min-height: 360px;
-        font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
-        font-size: 0.875rem;
-        line-height: 1.6;
       }
 
       .slug-preview {
@@ -129,7 +120,6 @@
         font-size: 0.875em;
       }
 
-      /* Buttons */
       .button-row {
         display: flex;
         gap: 0.75rem;
@@ -163,7 +153,6 @@
 
       .btn-secondary:hover { background: var(--border); }
 
-      /* Status */
       .status {
         margin-top: 1.25rem;
         padding: 0.75rem 1rem;
@@ -186,7 +175,6 @@
         display: block;
       }
 
-      /* Settings panel */
       .settings-panel {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -219,11 +207,39 @@
 
       .settings-note a { color: var(--accent); }
 
-      /* Divider */
       hr {
         border: none;
         border-top: 1px solid var(--border);
         margin: 2rem 0;
+      }
+
+      /* EasyMDE tweaks */
+      .CodeMirror {
+        font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+        font-size: 0.9rem;
+        min-height: 360px;
+        border-radius: 0 0 6px 6px;
+        color: var(--text);
+      }
+
+      .editor-toolbar {
+        border-radius: 6px 6px 0 0;
+        border-color: var(--border);
+      }
+
+      .editor-toolbar button { color: var(--text) !important; }
+
+      .editor-statusbar {
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      /* Image uploading indicator */
+      .upload-status {
+        font-size: 0.8125rem;
+        color: var(--muted);
+        margin-top: 0.375rem;
+        min-height: 1.2em;
       }
     </style>
   </head>
@@ -277,8 +293,9 @@
         <hr />
 
         <div class="form-group">
-          <label for="body">Body <span class="label-hint">(markdown)</span></label>
-          <textarea id="body" placeholder="Write your post in markdown..." required></textarea>
+          <label>Body</label>
+          <textarea id="body" placeholder="Write your post in markdown..."></textarea>
+          <p class="upload-status" id="upload-status"></p>
         </div>
 
         <div class="button-row">
@@ -290,8 +307,33 @@
       <div class="status" id="status"></div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
     <script>
       const STORAGE_KEY = 'vibecode_admin';
+
+      // --- EasyMDE ---
+
+      const easyMDE = new EasyMDE({
+        element: document.getElementById('body'),
+        spellChecker: false,
+        autosave: { enabled: false },
+        placeholder: 'Write your post in markdown...',
+        toolbar: [
+          'bold', 'italic', 'heading', '|',
+          'quote', 'unordered-list', 'ordered-list', '|',
+          'link', 'upload-image', '|',
+          'preview', 'side-by-side', 'fullscreen', '|',
+          'guide'
+        ],
+        imageUploadFunction: uploadImage,
+        imageTexts: {
+          sbInit: 'Attach images by dragging & dropping or clicking the toolbar button.',
+          sbOnDragEnter: 'Drop image to upload.',
+          sbOnDrop: 'Uploading image…',
+          sbProgress: 'Uploading image: #progress#%',
+          sbOnUploaded: 'Uploaded image.',
+        },
+      });
 
       // --- Settings ---
 
@@ -308,7 +350,7 @@
 
       function saveSettings() {
         const token = document.getElementById('gh-token').value.trim();
-        const repo = document.getElementById('gh-repo').value.trim();
+        const repo  = document.getElementById('gh-repo').value.trim();
         localStorage.setItem(STORAGE_KEY, JSON.stringify({ token, repo }));
         document.getElementById('settings-panel').removeAttribute('open');
         showStatus('Settings saved.', 'success');
@@ -344,8 +386,9 @@
         return res.json();
       }
 
-      async function ghPut(token, repo, path, content, message, sha) {
-        const body = { message, content: btoa(unescape(encodeURIComponent(content))) };
+      async function ghPut(token, repo, path, content, message, sha, isBinary = false) {
+        const encoded = isBinary ? content : btoa(unescape(encodeURIComponent(content)));
+        const body = { message, content: encoded };
         if (sha) body.sha = sha;
         const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
           method: 'PUT',
@@ -363,6 +406,42 @@
         return res.json();
       }
 
+      // --- Image upload (called by EasyMDE) ---
+
+      function uploadImage(file, onSuccess, onError) {
+        const { token, repo } = getSettings();
+        if (!token || !repo) {
+          onError('Configure GitHub settings before uploading images.');
+          return;
+        }
+
+        const ext      = file.name.split('.').pop().toLowerCase();
+        const slug     = toSlug(document.getElementById('title').value) || 'post';
+        const filename = `${slug}-${Date.now()}.${ext}`;
+        const path     = `posts/images/${filename}`;
+
+        setUploadStatus(`Uploading ${file.name}…`);
+
+        const reader = new FileReader();
+        reader.onload = async function (e) {
+          try {
+            // FileReader gives us "data:image/jpeg;base64,<data>" — extract just the base64 data
+            const base64 = e.target.result.split(',')[1];
+            await ghPut(token, repo, path, base64, `Add image: ${filename}`, null, true);
+            setUploadStatus('');
+            onSuccess(`/posts/images/${filename}`);
+          } catch (err) {
+            setUploadStatus('');
+            onError(err.message);
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function setUploadStatus(msg) {
+        document.getElementById('upload-status').textContent = msg;
+      }
+
       // --- Publish ---
 
       async function publishPost(e) {
@@ -378,43 +457,37 @@
         const title       = document.getElementById('title').value.trim();
         const date        = document.getElementById('date').value;
         const description = document.getElementById('description').value.trim();
-        const body        = document.getElementById('body').value;
+        const body        = easyMDE.value();
         const slug        = toSlug(title);
 
         if (!slug) { showStatus('Could not generate a slug from the title.', 'error'); return; }
+        if (!body.trim()) { showStatus('Post body cannot be empty.', 'error'); return; }
 
         const btn = document.getElementById('publish-btn');
         btn.disabled = true;
-        btn.textContent = 'Publishing...';
+        btn.textContent = 'Publishing…';
         clearStatus();
 
         try {
-          // 1. Build markdown file content
           const mdContent = `---\ntitle: ${title}\ndate: ${date}\n${description ? `description: ${description}\n` : ''}---\n\n${body}`;
 
-          // 2. Create the .md file (no SHA needed for new files)
           await ghPut(token, repo, `posts/${slug}.md`, mdContent, `Add post: ${title}`);
 
-          // 3. Fetch current index.json (need SHA to update it)
           let currentPosts = [];
           let indexSha = null;
           try {
             const indexFile = await ghGet(token, repo, 'posts/index.json');
             indexSha = indexFile.sha;
             currentPosts = JSON.parse(decodeURIComponent(escape(atob(indexFile.content.replace(/\n/g, '')))));
-          } catch (err) {
-            // index.json doesn't exist yet — that's fine, we'll create it
-          }
+          } catch (_) { /* index.json doesn't exist yet */ }
 
-          // 4. Prepend new entry
           const newEntry = { slug, title, date };
           if (description) newEntry.description = description;
           const updatedPosts = [newEntry, ...currentPosts.filter(p => p.slug !== slug)];
 
-          // 5. Update index.json
           await ghPut(token, repo, 'posts/index.json', JSON.stringify(updatedPosts, null, 2) + '\n', `Update post index: add ${slug}`, indexSha);
 
-          showStatus(`Post published. Cloudflare will redeploy in a moment.`, 'success');
+          showStatus('Post published. Cloudflare will redeploy in a moment.', 'success');
           clearForm();
         } catch (err) {
           showStatus(`Error: ${err.message}`, 'error');
@@ -429,7 +502,7 @@
       function clearForm() {
         document.getElementById('title').value = '';
         document.getElementById('description').value = '';
-        document.getElementById('body').value = '';
+        easyMDE.value('');
         document.getElementById('slug-display').textContent = 'my-post-title';
         setTodayDate();
       }
@@ -446,8 +519,7 @@
       }
 
       function clearStatus() {
-        const el = document.getElementById('status');
-        el.className = 'status';
+        document.getElementById('status').className = 'status';
       }
 
       // Init
