@@ -1,5 +1,11 @@
 [
   {
+    "slug": "added-apple-music-support",
+    "title": "Added Apple Music support",
+    "date": "2026-03-25",
+    "description": "Simple path to adding Apple Music lookup and playback"
+  },
+  {
     "slug": "back-to-being-amazed-image-file-conversion",
     "title": "Back to being amazed: image file conversion",
     "date": "2026-03-16",
