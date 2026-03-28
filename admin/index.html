@@ -61,6 +61,35 @@
         padding: 2rem 1.5rem;
       }
 
+      /* Mode tabs */
+      .mode-tabs {
+        display: flex;
+        gap: 0;
+        margin-bottom: 2rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+        width: fit-content;
+      }
+
+      .mode-tab {
+        padding: 0.5rem 1.25rem;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        background: var(--surface);
+        color: var(--muted);
+        transition: background 0.15s, color 0.15s;
+      }
+
+      .mode-tab:first-child { border-right: 1px solid var(--border); }
+
+      .mode-tab.active {
+        background: var(--accent);
+        color: #fff;
+      }
+
       h1 {
         font-size: 1.5rem;
         font-weight: 700;
@@ -88,7 +117,9 @@
 
       input[type="text"],
       input[type="date"],
-      input[type="password"] {
+      input[type="password"],
+      input[type="url"],
+      select {
         width: 100%;
         padding: 0.5rem 0.75rem;
         border: 1px solid var(--border);
@@ -99,9 +130,10 @@
         background: var(--bg);
         outline: none;
         transition: border-color 0.15s;
+        appearance: none;
       }
 
-      input:focus {
+      input:focus, select:focus {
         border-color: var(--accent);
         box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
       }
@@ -120,6 +152,70 @@
         font-size: 0.875em;
       }
 
+      /* Cover image upload */
+      .cover-upload-area {
+        border: 2px dashed var(--border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: border-color 0.15s, background 0.15s;
+        position: relative;
+      }
+
+      .cover-upload-area:hover {
+        border-color: var(--accent);
+        background: #eff6ff;
+      }
+
+      .cover-upload-area input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+      }
+
+      .cover-upload-label {
+        font-size: 0.875rem;
+        color: var(--muted);
+        pointer-events: none;
+      }
+
+      .cover-preview {
+        margin-top: 0.75rem;
+        display: none;
+      }
+
+      .cover-preview img {
+        max-height: 180px;
+        border-radius: 6px;
+        object-fit: cover;
+        max-width: 100%;
+      }
+
+      .cover-preview-name {
+        font-size: 0.8125rem;
+        color: var(--muted);
+        margin-top: 0.375rem;
+      }
+
+      /* Project-only fields */
+      .project-fields { display: none; }
+      .project-fields.visible { display: block; }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      @media (max-width: 580px) {
+        .two-col { grid-template-columns: 1fr; }
+      }
+
+      /* Buttons */
       .button-row {
         display: flex;
         gap: 0.75rem;
@@ -137,11 +233,7 @@
         transition: background 0.15s, opacity 0.15s;
       }
 
-      .btn-primary {
-        background: var(--accent);
-        color: #fff;
-      }
-
+      .btn-primary { background: var(--accent); color: #fff; }
       .btn-primary:hover { background: var(--accent-hover); }
       .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -153,6 +245,7 @@
 
       .btn-secondary:hover { background: var(--border); }
 
+      /* Status */
       .status {
         margin-top: 1.25rem;
         padding: 0.75rem 1rem;
@@ -175,6 +268,7 @@
         display: block;
       }
 
+      /* Settings panel */
       .settings-panel {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -234,7 +328,6 @@
         color: var(--muted);
       }
 
-      /* Image uploading indicator */
       .upload-status {
         font-size: 0.8125rem;
         color: var(--muted);
@@ -250,7 +343,12 @@
     </header>
 
     <main class="container">
-      <h1>New Post</h1>
+
+      <!-- Mode tabs -->
+      <div class="mode-tabs">
+        <button class="mode-tab active" onclick="setMode('post')">New Post</button>
+        <button class="mode-tab" onclick="setMode('project')">New Project</button>
+      </div>
 
       <!-- Settings -->
       <details class="settings-panel" id="settings-panel">
@@ -272,8 +370,12 @@
         </div>
       </details>
 
-      <!-- Post form -->
-      <form id="post-form" onsubmit="publishPost(event)">
+      <!-- Form -->
+      <form id="post-form" onsubmit="handleSubmit(event)">
+
+        <h1 id="form-heading">New Post</h1>
+
+        <!-- Shared fields -->
         <div class="form-group">
           <label for="title">Title</label>
           <input type="text" id="title" placeholder="My Post Title" required oninput="updateSlug()" />
@@ -286,15 +388,59 @@
         </div>
 
         <div class="form-group">
-          <label for="description">Description <span class="label-hint">(shown on homepage)</span></label>
-          <input type="text" id="description" placeholder="A short summary of the post." />
+          <label for="description">Description <span class="label-hint">(shown on overview)</span></label>
+          <input type="text" id="description" placeholder="A short summary." />
+        </div>
+
+        <!-- Project-only fields -->
+        <div class="project-fields" id="project-fields">
+          <hr />
+
+          <div class="form-group">
+            <label>Cover Image <span class="label-hint">(optional)</span></label>
+            <div class="cover-upload-area" id="cover-upload-area">
+              <input type="file" id="cover-image-input" accept="image/*" onchange="handleCoverImagePick(event)" />
+              <p class="cover-upload-label">Click to choose a cover image</p>
+            </div>
+            <div class="cover-preview" id="cover-preview">
+              <img id="cover-preview-img" src="" alt="Cover preview" />
+              <p class="cover-preview-name" id="cover-preview-name"></p>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="form-group">
+              <label for="tech">Tech Stack <span class="label-hint">(comma separated)</span></label>
+              <input type="text" id="tech" placeholder="Swift, SwiftUI, CloudKit" />
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select id="status">
+                <option value="In Progress">In Progress</option>
+                <option value="Live">Live</option>
+                <option value="On hold">On hold</option>
+                <option value="Archived">Archived</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="form-group">
+              <label for="project-url">Live URL <span class="label-hint">(optional)</span></label>
+              <input type="url" id="project-url" placeholder="https://example.com" />
+            </div>
+            <div class="form-group">
+              <label for="repo-url">Repo URL <span class="label-hint">(optional)</span></label>
+              <input type="url" id="repo-url" placeholder="https://github.com/..." />
+            </div>
+          </div>
         </div>
 
         <hr />
 
         <div class="form-group">
           <label>Body</label>
-          <textarea id="body" placeholder="Write your post in markdown..."></textarea>
+          <textarea id="body" placeholder="Write in markdown..."></textarea>
           <p class="upload-status" id="upload-status"></p>
         </div>
 
@@ -310,6 +456,9 @@
     <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
     <script>
       const STORAGE_KEY = 'vibecode_admin';
+      let currentMode = 'post';
+      let pendingCoverImageFile = null;
+      let publishedCoverImageUrl = null;
 
       // --- EasyMDE ---
 
@@ -317,7 +466,7 @@
         element: document.getElementById('body'),
         spellChecker: false,
         autosave: { enabled: false },
-        placeholder: 'Write your post in markdown...',
+        placeholder: 'Write in markdown...',
         toolbar: [
           'bold', 'italic', 'heading', '|',
           'quote', 'unordered-list', 'ordered-list', '|',
@@ -325,7 +474,7 @@
           'preview', 'side-by-side', 'fullscreen', '|',
           'guide'
         ],
-        imageUploadFunction: uploadImage,
+        imageUploadFunction: uploadBodyImage,
         imageTexts: {
           sbInit: 'Attach images by dragging & dropping or clicking the toolbar button.',
           sbOnDragEnter: 'Drop image to upload.',
@@ -334,6 +483,19 @@
           sbOnUploaded: 'Uploaded image.',
         },
       });
+
+      // --- Mode ---
+
+      function setMode(mode) {
+        currentMode = mode;
+        document.querySelectorAll('.mode-tab').forEach((tab, i) => {
+          tab.classList.toggle('active', (i === 0 && mode === 'post') || (i === 1 && mode === 'project'));
+        });
+        document.getElementById('project-fields').classList.toggle('visible', mode === 'project');
+        document.getElementById('form-heading').textContent = mode === 'post' ? 'New Post' : 'New Project';
+        document.getElementById('publish-btn').textContent = 'Publish';
+        clearStatus();
+      }
 
       // --- Settings ---
 
@@ -373,7 +535,37 @@
 
       function updateSlug() {
         const title = document.getElementById('title').value;
-        document.getElementById('slug-display').textContent = toSlug(title) || 'my-post-title';
+        document.getElementById('slug-display').textContent = toSlug(title) || (currentMode === 'project' ? 'my-project' : 'my-post-title');
+      }
+
+      // --- Cover image picker ---
+
+      function handleCoverImagePick(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        pendingCoverImageFile = file;
+        publishedCoverImageUrl = null;
+
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          document.getElementById('cover-preview-img').src = ev.target.result;
+          document.getElementById('cover-preview-name').textContent = file.name;
+          document.getElementById('cover-preview').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+
+      async function uploadCoverImage(token, repo, slug) {
+        if (!pendingCoverImageFile) return null;
+        const ext      = pendingCoverImageFile.name.split('.').pop().toLowerCase();
+        const filename = `${slug}-cover.${ext}`;
+        const path     = `projects/images/${filename}`;
+
+        setUploadStatus('Uploading cover image…');
+        const base64 = await fileToBase64(pendingCoverImageFile);
+        await ghPut(token, repo, path, base64, `Add image: ${filename}`, null, true);
+        setUploadStatus('');
+        return `/${path}`;
       }
 
       // --- GitHub API ---
@@ -406,9 +598,18 @@
         return res.json();
       }
 
-      // --- Image upload (called by EasyMDE) ---
+      function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = e => resolve(e.target.result.split(',')[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
 
-      function uploadImage(file, onSuccess, onError) {
+      // --- Body image upload (called by EasyMDE) ---
+
+      function uploadBodyImage(file, onSuccess, onError) {
         const { token, repo } = getSettings();
         if (!token || !repo) {
           onError('Configure GitHub settings before uploading images.');
@@ -416,37 +617,40 @@
         }
 
         const ext      = file.name.split('.').pop().toLowerCase();
-        const slug     = toSlug(document.getElementById('title').value) || 'post';
+        const prefix   = currentMode === 'project' ? 'projects' : 'posts';
+        const slug     = toSlug(document.getElementById('title').value) || 'untitled';
         const filename = `${slug}-${Date.now()}.${ext}`;
-        const path     = `posts/images/${filename}`;
+        const path     = `${prefix}/images/${filename}`;
 
         setUploadStatus(`Uploading ${file.name}…`);
 
-        const reader = new FileReader();
-        reader.onload = async function (e) {
-          try {
-            // FileReader gives us "data:image/jpeg;base64,<data>" — extract just the base64 data
-            const base64 = e.target.result.split(',')[1];
-            await ghPut(token, repo, path, base64, `Add image: ${filename}`, null, true);
-            setUploadStatus('');
-            onSuccess(`/posts/images/${filename}`);
-          } catch (err) {
-            setUploadStatus('');
-            onError(err.message);
-          }
-        };
-        reader.readAsDataURL(file);
+        fileToBase64(file).then(base64 =>
+          ghPut(token, repo, path, base64, `Add image: ${filename}`, null, true)
+        ).then(() => {
+          setUploadStatus('');
+          onSuccess(`/${path}`);
+        }).catch(err => {
+          setUploadStatus('');
+          onError(err.message);
+        });
       }
 
       function setUploadStatus(msg) {
         document.getElementById('upload-status').textContent = msg;
       }
 
-      // --- Publish ---
+      // --- Submit ---
 
-      async function publishPost(e) {
+      async function handleSubmit(e) {
         e.preventDefault();
+        if (currentMode === 'project') {
+          await publishProject();
+        } else {
+          await publishPost();
+        }
+      }
 
+      async function publishPost() {
         const { token, repo } = getSettings();
         if (!token || !repo) {
           showStatus('Please fill in your GitHub settings above first.', 'error');
@@ -463,28 +667,25 @@
         if (!slug) { showStatus('Could not generate a slug from the title.', 'error'); return; }
         if (!body.trim()) { showStatus('Post body cannot be empty.', 'error'); return; }
 
-        const btn = document.getElementById('publish-btn');
-        btn.disabled = true;
-        btn.textContent = 'Publishing…';
-        clearStatus();
+        setPublishing(true);
 
         try {
-          const mdContent = `---\ntitle: ${title}\ndate: ${date}\n${description ? `description: ${description}\n` : ''}---\n\n${body}`;
+          const mdContent = [
+            '---',
+            `title: ${title}`,
+            `date: ${date}`,
+            description ? `description: ${description}` : null,
+            '---',
+            '',
+            body,
+          ].filter(l => l !== null).join('\n');
 
           await ghPut(token, repo, `posts/${slug}.md`, mdContent, `Add post: ${title}`);
 
-          let currentPosts = [];
-          let indexSha = null;
-          try {
-            const indexFile = await ghGet(token, repo, 'posts/index.json');
-            indexSha = indexFile.sha;
-            currentPosts = JSON.parse(decodeURIComponent(escape(atob(indexFile.content.replace(/\n/g, '')))));
-          } catch (_) { /* index.json doesn't exist yet */ }
-
+          const { posts: currentPosts, sha: indexSha } = await fetchIndex(token, repo, 'posts/index.json');
           const newEntry = { slug, title, date };
           if (description) newEntry.description = description;
           const updatedPosts = [newEntry, ...currentPosts.filter(p => p.slug !== slug)];
-
           await ghPut(token, repo, 'posts/index.json', JSON.stringify(updatedPosts, null, 2) + '\n', `Update post index: add ${slug}`, indexSha);
 
           showStatus('Post published. Cloudflare will redeploy in a moment.', 'success');
@@ -492,9 +693,86 @@
         } catch (err) {
           showStatus(`Error: ${err.message}`, 'error');
         } finally {
-          btn.disabled = false;
-          btn.textContent = 'Publish';
+          setPublishing(false);
         }
+      }
+
+      async function publishProject() {
+        const { token, repo } = getSettings();
+        if (!token || !repo) {
+          showStatus('Please fill in your GitHub settings above first.', 'error');
+          document.getElementById('settings-panel').setAttribute('open', '');
+          return;
+        }
+
+        const title       = document.getElementById('title').value.trim();
+        const date        = document.getElementById('date').value;
+        const description = document.getElementById('description').value.trim();
+        const tech        = document.getElementById('tech').value.trim();
+        const status      = document.getElementById('status').value;
+        const url         = document.getElementById('project-url').value.trim();
+        const repoUrl     = document.getElementById('repo-url').value.trim();
+        const body        = easyMDE.value();
+        const slug        = toSlug(title);
+
+        if (!slug) { showStatus('Could not generate a slug from the title.', 'error'); return; }
+
+        setPublishing(true);
+
+        try {
+          // Upload cover image first if one was picked
+          const imageUrl = await uploadCoverImage(token, repo, slug);
+
+          const frontmatterLines = [
+            '---',
+            `title: ${title}`,
+            `date: ${date}`,
+            description ? `description: ${description}` : null,
+            imageUrl    ? `image: ${imageUrl}`          : null,
+            tech        ? `tech: ${tech}`               : null,
+            `status: ${status}`,
+            url         ? `url: ${url}`                 : null,
+            repoUrl     ? `repo: ${repoUrl}`            : null,
+            '---',
+            '',
+            body,
+          ].filter(l => l !== null).join('\n');
+
+          await ghPut(token, repo, `projects/${slug}.md`, frontmatterLines, `Add project: ${title}`);
+
+          const { posts: currentProjects, sha: indexSha } = await fetchIndex(token, repo, 'projects/index.json');
+          const newEntry = { slug, title, date };
+          if (description) newEntry.description = description;
+          if (imageUrl)    newEntry.image        = imageUrl;
+          if (tech)        newEntry.tech         = tech;
+          newEntry.status = status;
+          const updatedProjects = [newEntry, ...currentProjects.filter(p => p.slug !== slug)];
+          await ghPut(token, repo, 'projects/index.json', JSON.stringify(updatedProjects, null, 2) + '\n', `Update project index: add ${slug}`, indexSha);
+
+          showStatus('Project published. Cloudflare will redeploy in a moment.', 'success');
+          clearForm();
+        } catch (err) {
+          showStatus(`Error: ${err.message}`, 'error');
+        } finally {
+          setPublishing(false);
+        }
+      }
+
+      async function fetchIndex(token, repo, path) {
+        try {
+          const file = await ghGet(token, repo, path);
+          const posts = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, '')))));
+          return { posts, sha: file.sha };
+        } catch (_) {
+          return { posts: [], sha: null };
+        }
+      }
+
+      function setPublishing(on) {
+        const btn = document.getElementById('publish-btn');
+        btn.disabled = on;
+        btn.textContent = on ? 'Publishing…' : 'Publish';
+        if (on) clearStatus();
       }
 
       // --- Helpers ---
@@ -502,8 +780,16 @@
       function clearForm() {
         document.getElementById('title').value = '';
         document.getElementById('description').value = '';
+        document.getElementById('tech').value = '';
+        document.getElementById('status').value = 'In Progress';
+        document.getElementById('project-url').value = '';
+        document.getElementById('repo-url').value = '';
+        document.getElementById('cover-image-input').value = '';
+        document.getElementById('cover-preview').style.display = 'none';
+        pendingCoverImageFile = null;
+        publishedCoverImageUrl = null;
         easyMDE.value('');
-        document.getElementById('slug-display').textContent = 'my-post-title';
+        document.getElementById('slug-display').textContent = currentMode === 'project' ? 'my-project' : 'my-post-title';
         setTodayDate();
       }
 

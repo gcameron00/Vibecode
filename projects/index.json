@@ -1,0 +1,54 @@
+[
+  {
+    "slug": "songbubble",
+    "title": "SongBubble",
+    "date": "2026-03-28",
+    "description": "Community generated chart of favourite songs",
+    "image": "/projects/images/songbubble.png",
+    "tech": "Vibecode",
+    "status": "In Progress"
+  },
+  {
+    "slug": "connectionsframe",
+    "title": "ConnectionsFrame",
+    "date": "2026-03-28",
+    "description": "Workbench for solving NYT Connections puzzle",
+    "tech": "Vibecode",
+    "status": "Live"
+  },
+  {
+    "slug": "svg-to-png",
+    "title": "SVG to PNG",
+    "date": "2026-03-28",
+    "description": "Utility to convert .svg files to .png",
+    "tech": "Vibecode",
+    "status": "Live"
+  },
+  {
+    "slug": "all-about-the-vibes",
+    "title": "All About the Vibes",
+    "date": "2026-03-28",
+    "description": "A personal blog",
+    "image": "/projects/images/allaboutthevibes.png",
+    "tech": "Vibecode",
+    "status": "Live"
+  },
+  {
+    "slug": "goblinsteel",
+    "title": "Goblin Steel",
+    "date": "2026-03-28",
+    "description": "Experiment in what game play is possible",
+    "image": "/projects/images/goblinsteel.png",
+    "tech": "Vibecode",
+    "status": "On hold"
+  },
+  {
+    "slug": "lyricbubble",
+    "title": "LyricBubble",
+    "date": "2026-03-28",
+    "description": "Community generated chart of lines from songs",
+    "image": "/projects/images/lyricbubble.png",
+    "tech": "Vibecode",
+    "status": "Archived"
+  }
+]

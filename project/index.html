@@ -4,9 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>Post | All About the Vibes</title>
+    <title>Project | All About the Vibes</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <link rel="alternate" type="application/rss+xml" title="All About the Vibes" href="/feed.xml">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   </head>
   <body>
@@ -47,9 +46,9 @@
     </header>
 
     <main class="container">
-      <a href="/" class="back-link">&larr; All posts</a>
-      <div id="post-content">
-        <p class="loading">Loading post...</p>
+      <a href="/portfolio/" class="back-link">&larr; All projects</a>
+      <div id="project-content">
+        <p class="loading">Loading project...</p>
       </div>
     </main>
 
@@ -59,45 +58,87 @@
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-      async function loadPost() {
-        const container = document.getElementById('post-content');
+      async function loadProject() {
+        const container = document.getElementById('project-content');
         const params = new URLSearchParams(window.location.search);
         const slug = params.get('slug');
 
         if (!slug) {
-          container.innerHTML = '<p class="error">No post specified.</p>';
+          container.innerHTML = '<p class="error">No project specified.</p>';
           return;
         }
 
         try {
-          // Load post manifest to get metadata
-          const manifestRes = await fetch('/posts/index.json');
-          const posts = manifestRes.ok ? await manifestRes.json() : [];
-          const meta = posts.find(p => p.slug === slug);
-
-          // Load markdown content
-          const mdRes = await fetch(`/posts/${encodeURIComponent(slug)}.md`);
-          if (!mdRes.ok) throw new Error('Post not found');
+          const mdRes = await fetch(`/projects/${encodeURIComponent(slug)}.md`);
+          if (!mdRes.ok) throw new Error('Project not found');
           const markdown = await mdRes.text();
 
-          // Strip frontmatter if present
-          const content = markdown.replace(/^---[\s\S]*?---\r?\n/, '');
+          const { meta, body } = parseFrontmatter(markdown);
 
-          const title = meta?.title || slug;
-          const date = meta?.date ? formatDate(meta.date) : '';
+          document.title = `${meta.title || slug} | All About the Vibes`;
 
-          document.title = `${title} | All About the Vibes`;
+          const metaRows = buildMetaRows(meta);
 
           container.innerHTML = `
-            <div class="post-header">
-              <h1>${escapeHtml(title)}</h1>
-              ${date ? `<p class="post-meta">${date}</p>` : ''}
+            ${meta.image ? `<img class="project-hero" src="${escapeHtml(meta.image)}" alt="${escapeHtml(meta.title || '')}">` : ''}
+            <div class="project-header">
+              <h1>${escapeHtml(meta.title || slug)}</h1>
+              ${meta.status ? `<span class="status-badge ${statusClass(meta.status)}">${escapeHtml(meta.status)}</span>` : ''}
             </div>
-            <div class="prose">${marked.parse(content)}</div>
+            ${metaRows.length ? `<div class="project-meta-panel">${metaRows.join('')}</div>` : ''}
+            <div class="prose">${marked.parse(body)}</div>
           `;
         } catch (err) {
-          container.innerHTML = '<p class="error">Post could not be loaded.</p>';
+          container.innerHTML = '<p class="error">Project could not be loaded.</p>';
         }
+      }
+
+      function parseFrontmatter(markdown) {
+        const match = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+        if (!match) return { meta: {}, body: markdown };
+
+        const meta = {};
+        match[1].split('\n').forEach(line => {
+          const colon = line.indexOf(':');
+          if (colon === -1) return;
+          const key = line.slice(0, colon).trim();
+          const value = line.slice(colon + 1).trim();
+          if (key) meta[key] = value;
+        });
+
+        return { meta, body: match[2] };
+      }
+
+      function buildMetaRows(meta) {
+        const rows = [];
+        if (meta.tech) {
+          const tags = meta.tech.split(',').map(t => `<span class="tag">${escapeHtml(t.trim())}</span>`).join(' ');
+          rows.push(metaRow('Tech', tags, true));
+        }
+        if (meta.date) {
+          rows.push(metaRow('Updated', escapeHtml(formatDate(meta.date))));
+        }
+        if (meta.url) {
+          rows.push(metaRow('Live', `<a href="${escapeHtml(meta.url)}" target="_blank" rel="noopener">${escapeHtml(meta.url)}</a>`, true));
+        }
+        if (meta.repo) {
+          rows.push(metaRow('Repo', `<a href="${escapeHtml(meta.repo)}" target="_blank" rel="noopener">${escapeHtml(meta.repo)}</a>`, true));
+        }
+        return rows;
+      }
+
+      function metaRow(label, value, raw = false) {
+        return `<div class="meta-row">
+          <span class="meta-label">${label}</span>
+          <span class="meta-value">${raw ? value : escapeHtml(value)}</span>
+        </div>`;
+      }
+
+      function statusClass(status) {
+        const s = status.toLowerCase();
+        if (s === 'live') return 'status-badge--live';
+        if (s.includes('progress')) return 'status-badge--progress';
+        return 'status-badge--archived';
       }
 
       function formatDate(dateStr) {
@@ -106,10 +147,10 @@
       }
 
       function escapeHtml(str) {
-        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
       }
 
-      loadPost();
+      loadProject();
     </script>
   </body>
 </html>
