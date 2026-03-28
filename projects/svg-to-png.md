@@ -2,6 +2,7 @@
 title: SVG to PNG
 date: 2026-03-28
 description: Utility to convert .svg files to .png
+image: /projects/images/SVG%20to%20PNG.png
 tech: Vibecode
 status: Live
 url: https://svg-to-png-68y.pages.dev

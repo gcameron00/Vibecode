@@ -2,6 +2,7 @@
 title: ConnectionsFrame
 date: 2026-03-28
 description: Workbench for solving NYT Connections puzzle
+image: /projects/images/ConnectionsFrame.jpg
 tech: Vibecode
 status: Live
 url: https://connectionsframe.pages.dev
