@@ -8,7 +8,7 @@ This weekend I have:
 
 Updated ConnectionsFrame to avoid pop-up blockers for both my informational and reset messages.
 
-Implemented a [Portfolio](https://allaboutthevibes/portfolio) section of this website to showcase a few of the mini-projects I‘ve been experimenting with.
+Implemented a [Portfolio](https://allaboutthevibes.blog/portfolio) section of this website to showcase a few of the mini-projects I‘ve been experimenting with.
 
 Figured out, with the help of Claude, how to configure Cloudflare to protect a section of one of my web apps. So now only admins (me) can view the database and access some debug options.
 

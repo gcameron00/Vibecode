@@ -5,8 +5,8 @@ description: A personal blog
 image: /projects/images/allaboutthevibes.png
 tech: Vibecode
 status: Live
-url: https://allaboutthevibes.com
+url: https://allaboutthevibes.blog
 repo: https://github.com/gcameron00/vibecode
 ---
 
-Coming soon.
+This blog.
