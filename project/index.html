@@ -116,7 +116,10 @@
           rows.push(metaRow('Tech', tags, true));
         }
         if (meta.date) {
-          rows.push(metaRow('Updated', escapeHtml(formatDate(meta.date))));
+          rows.push(metaRow('Published', escapeHtml(formatDate(meta.date))));
+        }
+        if (meta.updated) {
+          rows.push(metaRow('Updated', escapeHtml(formatDate(meta.updated))));
         }
         if (meta.url) {
           rows.push(metaRow('Live', `<a href="${escapeHtml(meta.url)}" target="_blank" rel="noopener">${escapeHtml(meta.url)}</a>`, true));

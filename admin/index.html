@@ -25,8 +25,7 @@
         font-family: system-ui, -apple-system, sans-serif;
         background: var(--bg);
         color: var(--text);
-        margin: 0;
-        padding: 0;
+        margin: 0; padding: 0;
         font-size: 1rem;
         line-height: 1.6;
       }
@@ -39,32 +38,19 @@
         justify-content: space-between;
       }
 
-      .site-title {
-        font-weight: 700;
-        font-size: 1rem;
-        text-decoration: none;
-        color: var(--text);
-      }
+      .site-title { font-weight: 700; font-size: 1rem; text-decoration: none; color: var(--text); }
 
       .admin-label {
-        font-size: 0.8125rem;
-        color: var(--muted);
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 4px;
-        padding: 0.2em 0.6em;
+        font-size: 0.8125rem; color: var(--muted);
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 4px; padding: 0.2em 0.6em;
       }
 
-      .container {
-        max-width: var(--max-width);
-        margin: 0 auto;
-        padding: 2rem 1.5rem;
-      }
+      .container { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1.5rem; }
 
-      /* Mode tabs */
+      /* Tabs */
       .mode-tabs {
         display: flex;
-        gap: 0;
         margin-bottom: 2rem;
         border: 1px solid var(--border);
         border-radius: 8px;
@@ -74,62 +60,64 @@
 
       .mode-tab {
         padding: 0.5rem 1.25rem;
-        font-size: 0.9375rem;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        background: var(--surface);
-        color: var(--muted);
+        font-size: 0.9375rem; font-weight: 600;
+        cursor: pointer; border: none;
+        background: var(--surface); color: var(--muted);
+        transition: background 0.15s, color 0.15s;
+        border-right: 1px solid var(--border);
+      }
+
+      .mode-tab:last-child { border-right: none; }
+      .mode-tab.active { background: var(--accent); color: #fff; }
+
+      /* Entry picker bar */
+      .entry-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.75rem;
+      }
+
+      .entry-bar select { flex: 1; margin: 0; }
+
+      .btn-refresh {
+        padding: 0.5rem 0.875rem;
+        background: var(--surface); color: var(--muted);
+        border: 1px solid var(--border); border-radius: 6px;
+        font-size: 0.875rem; font-weight: 600;
+        cursor: pointer; white-space: nowrap;
         transition: background 0.15s, color 0.15s;
       }
 
-      .mode-tab:first-child { border-right: 1px solid var(--border); }
+      .btn-refresh:hover { background: var(--border); color: var(--text); }
 
-      .mode-tab.active {
-        background: var(--accent);
-        color: #fff;
+      h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
+
+      .edit-notice {
+        display: none;
+        font-size: 0.875rem; color: #92400e;
+        background: #fefce8; border: 1px solid #fde68a;
+        border-radius: 6px; padding: 0.5rem 0.875rem;
+        margin-bottom: 1.5rem;
       }
 
-      h1 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        margin: 0 0 2rem;
-      }
+      .edit-notice.visible { display: block; }
 
-      .form-group {
-        margin-bottom: 1.25rem;
-      }
+      .form-group { margin-bottom: 1.25rem; }
 
-      label {
-        display: block;
-        font-size: 0.875rem;
-        font-weight: 600;
-        margin-bottom: 0.375rem;
-        color: var(--text);
-      }
-
-      .label-hint {
-        font-weight: 400;
-        color: var(--muted);
-        margin-left: 0.375rem;
-      }
+      label { display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.375rem; color: var(--text); }
+      .label-hint { font-weight: 400; color: var(--muted); margin-left: 0.375rem; }
 
       input[type="text"],
       input[type="date"],
       input[type="password"],
       input[type="url"],
       select {
-        width: 100%;
-        padding: 0.5rem 0.75rem;
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        font-size: 0.9375rem;
-        font-family: inherit;
-        color: var(--text);
-        background: var(--bg);
-        outline: none;
-        transition: border-color 0.15s;
+        width: 100%; padding: 0.5rem 0.75rem;
+        border: 1px solid var(--border); border-radius: 6px;
+        font-size: 0.9375rem; font-family: inherit;
+        color: var(--text); background: var(--bg);
+        outline: none; transition: border-color 0.15s;
         appearance: none;
       }
 
@@ -138,98 +126,50 @@
         box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
       }
 
-      .slug-preview {
-        font-size: 0.8125rem;
-        color: var(--muted);
-        margin-top: 0.375rem;
-      }
+      input[readonly] { background: var(--surface); color: var(--muted); cursor: default; }
 
+      .slug-preview { font-size: 0.8125rem; color: var(--muted); margin-top: 0.375rem; }
       .slug-preview code {
         font-family: 'Menlo', 'Monaco', monospace;
-        background: var(--surface);
-        padding: 0.1em 0.35em;
-        border-radius: 3px;
-        font-size: 0.875em;
+        background: var(--surface); padding: 0.1em 0.35em;
+        border-radius: 3px; font-size: 0.875em;
       }
 
-      /* Cover image upload */
+      /* Cover image */
       .cover-upload-area {
-        border: 2px dashed var(--border);
-        border-radius: 8px;
-        padding: 1.5rem;
-        text-align: center;
-        cursor: pointer;
+        border: 2px dashed var(--border); border-radius: 8px;
+        padding: 1.5rem; text-align: center; cursor: pointer;
         transition: border-color 0.15s, background 0.15s;
         position: relative;
       }
 
-      .cover-upload-area:hover {
-        border-color: var(--accent);
-        background: #eff6ff;
-      }
+      .cover-upload-area:hover { border-color: var(--accent); background: #eff6ff; }
 
       .cover-upload-area input[type="file"] {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
+        position: absolute; inset: 0; opacity: 0;
+        cursor: pointer; width: 100%; height: 100%;
       }
 
-      .cover-upload-label {
-        font-size: 0.875rem;
-        color: var(--muted);
-        pointer-events: none;
-      }
+      .cover-upload-label { font-size: 0.875rem; color: var(--muted); pointer-events: none; }
 
-      .cover-preview {
-        margin-top: 0.75rem;
-        display: none;
-      }
-
-      .cover-preview img {
-        max-height: 180px;
-        border-radius: 6px;
-        object-fit: cover;
-        max-width: 100%;
-      }
-
-      .cover-preview-name {
-        font-size: 0.8125rem;
-        color: var(--muted);
-        margin-top: 0.375rem;
-      }
+      .cover-preview { margin-top: 0.75rem; display: none; }
+      .cover-preview img { max-height: 180px; border-radius: 6px; object-fit: cover; max-width: 100%; }
+      .cover-preview-name { font-size: 0.8125rem; color: var(--muted); margin-top: 0.375rem; }
 
       /* Project-only fields */
       .project-fields { display: none; }
       .project-fields.visible { display: block; }
 
-      .two-col {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-      }
-
-      @media (max-width: 580px) {
-        .two-col { grid-template-columns: 1fr; }
-      }
+      .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      @media (max-width: 580px) { .two-col { grid-template-columns: 1fr; } }
 
       /* Buttons */
-      .button-row {
-        display: flex;
-        gap: 0.75rem;
-        align-items: center;
-        margin-top: 1.75rem;
-      }
+      .button-row { display: flex; gap: 0.75rem; align-items: center; margin-top: 1.75rem; }
 
       button {
-        padding: 0.5625rem 1.25rem;
-        border-radius: 6px;
-        font-size: 0.9375rem;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
+        padding: 0.5625rem 1.25rem; border-radius: 6px;
+        font-size: 0.9375rem; font-weight: 600;
+        cursor: pointer; border: none;
         transition: background 0.15s, opacity 0.15s;
       }
 
@@ -237,103 +177,39 @@
       .btn-primary:hover { background: var(--accent-hover); }
       .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
-      .btn-secondary {
-        background: var(--surface);
-        color: var(--text);
-        border: 1px solid var(--border);
-      }
-
+      .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
       .btn-secondary:hover { background: var(--border); }
 
       /* Status */
       .status {
-        margin-top: 1.25rem;
-        padding: 0.75rem 1rem;
-        border-radius: 6px;
-        font-size: 0.9375rem;
-        display: none;
+        margin-top: 1.25rem; padding: 0.75rem 1rem;
+        border-radius: 6px; font-size: 0.9375rem; display: none;
       }
 
-      .status.success {
-        background: #f0fdf4;
-        color: var(--success);
-        border: 1px solid #bbf7d0;
-        display: block;
-      }
+      .status.success { background: #f0fdf4; color: var(--success); border: 1px solid #bbf7d0; display: block; }
+      .status.error   { background: #fef2f2; color: var(--error);   border: 1px solid #fecaca; display: block; }
 
-      .status.error {
-        background: #fef2f2;
-        color: var(--error);
-        border: 1px solid #fecaca;
-        display: block;
-      }
-
-      /* Settings panel */
-      .settings-panel {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 1.25rem;
-        margin-bottom: 2rem;
-      }
-
-      .settings-panel summary {
-        font-size: 0.875rem;
-        font-weight: 600;
-        cursor: pointer;
-        color: var(--muted);
-        user-select: none;
-      }
-
-      .settings-panel summary:hover { color: var(--text); }
-
-      .settings-fields {
-        margin-top: 1rem;
-        display: grid;
-        gap: 0.875rem;
-      }
-
-      .settings-note {
-        font-size: 0.8125rem;
-        color: var(--muted);
-        margin-top: 0.5rem;
-      }
-
+      /* Settings tab */
+      .settings-tab-panel { display: none; }
+      .settings-tab-panel.visible { display: block; }
+      .settings-fields { display: grid; gap: 0.875rem; max-width: 480px; }
+      .settings-note { font-size: 0.8125rem; color: var(--muted); margin-top: 0.5rem; }
       .settings-note a { color: var(--accent); }
 
-      hr {
-        border: none;
-        border-top: 1px solid var(--border);
-        margin: 2rem 0;
-      }
+      hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
 
-      /* EasyMDE tweaks */
+      /* EasyMDE */
       .CodeMirror {
         font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
-        font-size: 0.9rem;
-        min-height: 360px;
-        border-radius: 0 0 6px 6px;
-        color: var(--text);
+        font-size: 0.9rem; min-height: 360px;
+        border-radius: 0 0 6px 6px; color: var(--text);
       }
 
-      .editor-toolbar {
-        border-radius: 6px 6px 0 0;
-        border-color: var(--border);
-      }
-
+      .editor-toolbar { border-radius: 6px 6px 0 0; border-color: var(--border); }
       .editor-toolbar button { color: var(--text) !important; }
+      .editor-statusbar { font-size: 0.75rem; color: var(--muted); }
 
-      .editor-statusbar {
-        font-size: 0.75rem;
-        color: var(--muted);
-      }
-
-      .upload-status {
-        font-size: 0.8125rem;
-        color: var(--muted);
-        margin-top: 0.375rem;
-        min-height: 1.2em;
-      }
+      .upload-status { font-size: 0.8125rem; color: var(--muted); margin-top: 0.375rem; min-height: 1.2em; }
     </style>
   </head>
   <body>
@@ -344,17 +220,18 @@
 
     <main class="container">
 
-      <!-- Mode tabs -->
+      <!-- Tabs: Posts | Projects | Settings -->
       <div class="mode-tabs">
-        <button class="mode-tab active" onclick="setMode('post')">New Post</button>
-        <button class="mode-tab" onclick="setMode('project')">New Project</button>
+        <button class="mode-tab active" onclick="setTab('post')">Posts</button>
+        <button class="mode-tab"        onclick="setTab('project')">Projects</button>
+        <button class="mode-tab"        onclick="setTab('settings')">Settings</button>
       </div>
 
-      <!-- Settings -->
-      <details class="settings-panel" id="settings-panel">
-        <summary>GitHub Settings</summary>
+      <!-- Settings tab panel -->
+      <div class="settings-tab-panel" id="settings-tab-panel">
+        <h1>Settings</h1>
         <div class="settings-fields">
-          <div class="form-group" style="margin:0">
+          <div class="form-group">
             <label>Personal Access Token <span class="label-hint">(stored in browser)</span></label>
             <input type="password" id="gh-token" placeholder="ghp_..." />
             <p class="settings-note">
@@ -362,93 +239,105 @@
               <a href="https://github.com/settings/personal-access-tokens/new" target="_blank">Create a fine-grained token</a>
             </p>
           </div>
-          <div class="form-group" style="margin:0">
+          <div class="form-group">
             <label>Repository</label>
             <input type="text" id="gh-repo" placeholder="owner/repo" />
           </div>
-          <button class="btn-secondary" onclick="saveSettings()" style="width:fit-content">Save settings</button>
+          <button class="btn-primary" onclick="saveSettings()" style="width:fit-content">Save settings</button>
         </div>
-      </details>
+      </div>
 
-      <!-- Form -->
-      <form id="post-form" onsubmit="handleSubmit(event)">
+      <!-- Main form (Posts & Projects tabs) -->
+      <div id="main-panel">
 
-        <h1 id="form-heading">New Post</h1>
-
-        <!-- Shared fields -->
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input type="text" id="title" placeholder="My Post Title" required oninput="updateSlug()" />
-          <p class="slug-preview">Slug: <code id="slug-display">my-post-title</code></p>
-        </div>
-
-        <div class="form-group">
-          <label for="date">Date</label>
-          <input type="date" id="date" required />
+        <!-- Entry picker -->
+        <div class="entry-bar">
+          <select id="entry-select" onchange="onEntryChange()">
+            <option value="__new__">New Post</option>
+          </select>
+          <button class="btn-refresh" onclick="refreshEntryList()" title="Refresh list">&#8635;</button>
         </div>
 
-        <div class="form-group">
-          <label for="description">Description <span class="label-hint">(shown on overview)</span></label>
-          <input type="text" id="description" placeholder="A short summary." />
-        </div>
+        <form id="post-form" onsubmit="handleSubmit(event)">
 
-        <!-- Project-only fields -->
-        <div class="project-fields" id="project-fields">
+          <h1 id="form-heading">New Post</h1>
+          <div class="edit-notice" id="edit-notice">Editing existing entry — slug is locked. Saving will set the updated date automatically.</div>
+
+          <!-- Shared fields -->
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" placeholder="Title" required oninput="onFormChange(); updateSlug()" />
+            <p class="slug-preview">Slug: <code id="slug-display">new-post</code></p>
+          </div>
+
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" required oninput="onFormChange()" />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description <span class="label-hint">(shown on overview)</span></label>
+            <input type="text" id="description" placeholder="A short summary." oninput="onFormChange()" />
+          </div>
+
+          <!-- Project-only fields -->
+          <div class="project-fields" id="project-fields">
+            <hr />
+
+            <div class="form-group">
+              <label>Cover Image <span class="label-hint">(optional)</span></label>
+              <div class="cover-upload-area">
+                <input type="file" id="cover-image-input" accept="image/*" onchange="handleCoverImagePick(event)" />
+                <p class="cover-upload-label" id="cover-upload-label">Click to choose a cover image</p>
+              </div>
+              <div class="cover-preview" id="cover-preview">
+                <img id="cover-preview-img" src="" alt="Cover preview" />
+                <p class="cover-preview-name" id="cover-preview-name"></p>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div class="form-group">
+                <label for="tech">Tech Stack <span class="label-hint">(comma separated)</span></label>
+                <input type="text" id="tech" placeholder="Swift, SwiftUI" oninput="onFormChange()" />
+              </div>
+              <div class="form-group">
+                <label for="proj-status">Status</label>
+                <select id="proj-status" onchange="onFormChange()">
+                  <option value="In Progress">In Progress</option>
+                  <option value="Live">Live</option>
+                  <option value="On hold">On hold</option>
+                  <option value="Archived">Archived</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div class="form-group">
+                <label for="project-url">Live URL <span class="label-hint">(optional)</span></label>
+                <input type="url" id="project-url" placeholder="https://example.com" oninput="onFormChange()" />
+              </div>
+              <div class="form-group">
+                <label for="repo-url">Repo URL <span class="label-hint">(optional)</span></label>
+                <input type="url" id="repo-url" placeholder="https://github.com/..." oninput="onFormChange()" />
+              </div>
+            </div>
+          </div>
+
           <hr />
 
           <div class="form-group">
-            <label>Cover Image <span class="label-hint">(optional)</span></label>
-            <div class="cover-upload-area" id="cover-upload-area">
-              <input type="file" id="cover-image-input" accept="image/*" onchange="handleCoverImagePick(event)" />
-              <p class="cover-upload-label">Click to choose a cover image</p>
-            </div>
-            <div class="cover-preview" id="cover-preview">
-              <img id="cover-preview-img" src="" alt="Cover preview" />
-              <p class="cover-preview-name" id="cover-preview-name"></p>
-            </div>
+            <label>Body</label>
+            <textarea id="body" placeholder="Write in markdown..."></textarea>
+            <p class="upload-status" id="upload-status"></p>
           </div>
 
-          <div class="two-col">
-            <div class="form-group">
-              <label for="tech">Tech Stack <span class="label-hint">(comma separated)</span></label>
-              <input type="text" id="tech" placeholder="Swift, SwiftUI, CloudKit" />
-            </div>
-            <div class="form-group">
-              <label for="status">Status</label>
-              <select id="status">
-                <option value="In Progress">In Progress</option>
-                <option value="Live">Live</option>
-                <option value="On hold">On hold</option>
-                <option value="Archived">Archived</option>
-              </select>
-            </div>
+          <div class="button-row">
+            <button type="submit" class="btn-primary" id="publish-btn">Publish</button>
+            <button type="button" class="btn-secondary" onclick="resetForm()">Clear</button>
           </div>
-
-          <div class="two-col">
-            <div class="form-group">
-              <label for="project-url">Live URL <span class="label-hint">(optional)</span></label>
-              <input type="url" id="project-url" placeholder="https://example.com" />
-            </div>
-            <div class="form-group">
-              <label for="repo-url">Repo URL <span class="label-hint">(optional)</span></label>
-              <input type="url" id="repo-url" placeholder="https://github.com/..." />
-            </div>
-          </div>
-        </div>
-
-        <hr />
-
-        <div class="form-group">
-          <label>Body</label>
-          <textarea id="body" placeholder="Write in markdown..."></textarea>
-          <p class="upload-status" id="upload-status"></p>
-        </div>
-
-        <div class="button-row">
-          <button type="submit" class="btn-primary" id="publish-btn">Publish</button>
-          <button type="button" class="btn-secondary" onclick="clearForm()">Clear</button>
-        </div>
-      </form>
+        </form>
+      </div>
 
       <div class="status" id="status"></div>
     </main>
@@ -456,11 +345,18 @@
     <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
     <script>
       const STORAGE_KEY = 'vibecode_admin';
-      let currentMode = 'post';
-      let pendingCoverImageFile = null;
-      let publishedCoverImageUrl = null;
 
-      // --- EasyMDE ---
+      let currentTab   = 'post';    // 'post' | 'project' | 'settings'
+      let isEditing    = false;
+      let editingSlug  = null;
+      let editingMdSha = null;
+      let existingImage = null;
+      let pendingCoverImageFile = null;
+      let isDirty = false;          // unsaved changes flag
+
+      // -----------------------------------------------------------------------
+      // EasyMDE
+      // -----------------------------------------------------------------------
 
       const easyMDE = new EasyMDE({
         element: document.getElementById('body'),
@@ -484,37 +380,167 @@
         },
       });
 
-      // --- Mode ---
+      easyMDE.codemirror.on('change', onFormChange);
 
-      function setMode(mode) {
-        currentMode = mode;
-        document.querySelectorAll('.mode-tab').forEach((tab, i) => {
-          tab.classList.toggle('active', (i === 0 && mode === 'post') || (i === 1 && mode === 'project'));
+      // -----------------------------------------------------------------------
+      // Tabs
+      // -----------------------------------------------------------------------
+
+      function setTab(tab) {
+        if (tab === currentTab) return;
+
+        // Dirty check when leaving a form tab
+        if (currentTab !== 'settings' && isDirty) {
+          if (!confirm('You have unsaved changes. Leave anyway?')) return;
+        }
+
+        currentTab = tab;
+
+        document.querySelectorAll('.mode-tab').forEach((el, i) => {
+          el.classList.toggle('active',
+            (i === 0 && tab === 'post') ||
+            (i === 1 && tab === 'project') ||
+            (i === 2 && tab === 'settings')
+          );
         });
-        document.getElementById('project-fields').classList.toggle('visible', mode === 'project');
-        document.getElementById('form-heading').textContent = mode === 'post' ? 'New Post' : 'New Project';
-        document.getElementById('publish-btn').textContent = 'Publish';
+
+        const isSettings = tab === 'settings';
+        document.getElementById('settings-tab-panel').classList.toggle('visible', isSettings);
+        document.getElementById('main-panel').style.display = isSettings ? 'none' : 'block';
+        document.getElementById('project-fields').classList.toggle('visible', tab === 'project');
+
+        if (!isSettings) {
+          resetForm();
+          refreshEntryList();   // auto-populate on tab switch
+        }
+
         clearStatus();
       }
 
-      // --- Settings ---
+      // -----------------------------------------------------------------------
+      // Entry picker
+      // -----------------------------------------------------------------------
+
+      async function refreshEntryList() {
+        const select = document.getElementById('entry-select');
+        const newLabel = currentTab === 'project' ? 'New Project' : 'New Post';
+        select.innerHTML = `<option value="__new__">${newLabel}</option><option disabled>Loading…</option>`;
+
+        const { token, repo } = getSettings();
+        if (!token || !repo) {
+          select.innerHTML = `<option value="__new__">${newLabel}</option><option disabled>⚠ Configure Settings first</option>`;
+          return;
+        }
+
+        try {
+          const indexPath = currentTab === 'project' ? 'projects/index.json' : 'posts/index.json';
+          const { posts: entries } = await fetchIndex(token, repo, indexPath);
+          select.innerHTML = `<option value="__new__">${newLabel}</option>` +
+            (entries.length ? '<option disabled>──────────</option>' : '') +
+            entries.map(e => `<option value="${e.slug}">${e.title}</option>`).join('');
+        } catch (_) {
+          select.innerHTML = `<option value="__new__">${newLabel}</option><option disabled>Failed to load entries</option>`;
+        }
+      }
+
+      async function onEntryChange() {
+        const slug = document.getElementById('entry-select').value;
+
+        if (slug === '__new__') {
+          if (isDirty && !confirm('You have unsaved changes. Clear the form?')) {
+            // Revert dropdown to previously selected value
+            document.getElementById('entry-select').value = editingSlug || '__new__';
+            return;
+          }
+          resetForm();
+          return;
+        }
+
+        // Switching to a different existing entry
+        if (isDirty && !confirm('You have unsaved changes. Load the selected entry anyway?')) {
+          document.getElementById('entry-select').value = editingSlug || '__new__';
+          return;
+        }
+
+        await loadEntry(slug);
+      }
+
+      async function loadEntry(slug) {
+        const { token, repo } = getSettings();
+        if (!token || !repo) { promptSettings(); return; }
+
+        const mdPath = currentTab === 'project' ? `projects/${slug}.md` : `posts/${slug}.md`;
+
+        try {
+          showStatus('Loading…', 'success');
+          const file = await ghGet(token, repo, mdPath);
+          const markdown = decodeURIComponent(escape(atob(file.content.replace(/\n/g, ''))));
+          const { meta, body } = parseFrontmatter(markdown);
+
+          editingMdSha  = file.sha;
+          isEditing     = true;
+          editingSlug   = slug;
+          isDirty       = false;
+
+          // Heading & notice
+          document.getElementById('form-heading').textContent = `Editing: ${meta.title || slug}`;
+          document.getElementById('edit-notice').classList.add('visible');
+          document.getElementById('publish-btn').textContent = 'Update';
+
+          // Shared fields
+          document.getElementById('title').value       = meta.title       || '';
+          document.getElementById('date').value        = meta.date        || '';
+          document.getElementById('description').value = meta.description || '';
+          document.getElementById('slug-display').textContent = slug;
+          document.getElementById('title').setAttribute('readonly', '');
+
+          // Project fields
+          if (currentTab === 'project') {
+            document.getElementById('tech').value        = meta.tech   || '';
+            document.getElementById('proj-status').value = meta.status || 'In Progress';
+            document.getElementById('project-url').value = meta.url    || '';
+            document.getElementById('repo-url').value    = meta.repo   || '';
+
+            existingImage = meta.image || null;
+            if (existingImage) {
+              document.getElementById('cover-preview-img').src = existingImage;
+              document.getElementById('cover-preview-name').textContent = 'Current cover image';
+              document.getElementById('cover-preview').style.display = 'block';
+              document.getElementById('cover-upload-label').textContent = 'Click to replace cover image';
+            }
+          }
+
+          easyMDE.value(body);
+          isDirty = false; // reset after programmatic fill
+          clearStatus();
+        } catch (err) {
+          showStatus(`Error loading: ${err.message}`, 'error');
+        }
+      }
+
+      // -----------------------------------------------------------------------
+      // Dirty tracking
+      // -----------------------------------------------------------------------
+
+      function onFormChange() {
+        isDirty = true;
+      }
+
+      // -----------------------------------------------------------------------
+      // Settings
+      // -----------------------------------------------------------------------
 
       function loadSettings() {
         const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
         if (saved.token) document.getElementById('gh-token').value = saved.token;
         document.getElementById('gh-repo').value = saved.repo || 'gcameron00/Vibecode';
-        if (saved.token && saved.repo) {
-          document.getElementById('settings-panel').removeAttribute('open');
-        } else {
-          document.getElementById('settings-panel').setAttribute('open', '');
-        }
+        if (!saved.token || !saved.repo) setTab('settings');
       }
 
       function saveSettings() {
         const token = document.getElementById('gh-token').value.trim();
         const repo  = document.getElementById('gh-repo').value.trim();
         localStorage.setItem(STORAGE_KEY, JSON.stringify({ token, repo }));
-        document.getElementById('settings-panel').removeAttribute('open');
         showStatus('Settings saved.', 'success');
       }
 
@@ -522,32 +548,34 @@
         return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
       }
 
-      // --- Slug ---
+      // -----------------------------------------------------------------------
+      // Slug
+      // -----------------------------------------------------------------------
 
-      function toSlug(title) {
-        return title
-          .toLowerCase()
-          .replace(/[^a-z0-9\s-]/g, '')
-          .trim()
-          .replace(/\s+/g, '-')
-          .replace(/-+/g, '-');
+      function toSlug(str) {
+        return str.toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, '').trim()
+          .replace(/\s+/g, '-').replace(/-+/g, '-');
       }
 
       function updateSlug() {
+        if (isEditing) return;
         const title = document.getElementById('title').value;
-        document.getElementById('slug-display').textContent = toSlug(title) || (currentMode === 'project' ? 'my-project' : 'my-post-title');
+        document.getElementById('slug-display').textContent =
+          toSlug(title) || (currentTab === 'project' ? 'new-project' : 'new-post');
       }
 
-      // --- Cover image picker ---
+      // -----------------------------------------------------------------------
+      // Cover image
+      // -----------------------------------------------------------------------
 
       function handleCoverImagePick(e) {
         const file = e.target.files[0];
         if (!file) return;
         pendingCoverImageFile = file;
-        publishedCoverImageUrl = null;
-
+        onFormChange();
         const reader = new FileReader();
-        reader.onload = function (ev) {
+        reader.onload = ev => {
           document.getElementById('cover-preview-img').src = ev.target.result;
           document.getElementById('cover-preview-name').textContent = file.name;
           document.getElementById('cover-preview').style.display = 'block';
@@ -560,7 +588,6 @@
         const ext      = pendingCoverImageFile.name.split('.').pop().toLowerCase();
         const filename = `${slug}-cover.${ext}`;
         const path     = `projects/images/${filename}`;
-
         setUploadStatus('Uploading cover image…');
         const base64 = await fileToBase64(pendingCoverImageFile);
         await ghPut(token, repo, path, base64, `Add image: ${filename}`, null, true);
@@ -568,7 +595,9 @@
         return `/${path}`;
       }
 
-      // --- GitHub API ---
+      // -----------------------------------------------------------------------
+      // GitHub API
+      // -----------------------------------------------------------------------
 
       async function ghGet(token, repo, path) {
         const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
@@ -598,6 +627,16 @@
         return res.json();
       }
 
+      async function fetchIndex(token, repo, path) {
+        try {
+          const file = await ghGet(token, repo, path);
+          const data = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, '')))));
+          return { posts: data, sha: file.sha };
+        } catch (_) {
+          return { posts: [], sha: null };
+        }
+      }
+
       function fileToBase64(file) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
@@ -607,56 +646,46 @@
         });
       }
 
-      // --- Body image upload (called by EasyMDE) ---
+      // -----------------------------------------------------------------------
+      // Body image upload (EasyMDE callback)
+      // -----------------------------------------------------------------------
 
       function uploadBodyImage(file, onSuccess, onError) {
         const { token, repo } = getSettings();
-        if (!token || !repo) {
-          onError('Configure GitHub settings before uploading images.');
-          return;
-        }
-
+        if (!token || !repo) { onError('Configure GitHub settings first.'); return; }
         const ext      = file.name.split('.').pop().toLowerCase();
-        const prefix   = currentMode === 'project' ? 'projects' : 'posts';
-        const slug     = toSlug(document.getElementById('title').value) || 'untitled';
+        const prefix   = currentTab === 'project' ? 'projects' : 'posts';
+        const slug     = editingSlug || toSlug(document.getElementById('title').value) || 'untitled';
         const filename = `${slug}-${Date.now()}.${ext}`;
         const path     = `${prefix}/images/${filename}`;
-
         setUploadStatus(`Uploading ${file.name}…`);
-
-        fileToBase64(file).then(base64 =>
-          ghPut(token, repo, path, base64, `Add image: ${filename}`, null, true)
-        ).then(() => {
-          setUploadStatus('');
-          onSuccess(`/${path}`);
-        }).catch(err => {
-          setUploadStatus('');
-          onError(err.message);
-        });
+        fileToBase64(file)
+          .then(base64 => ghPut(token, repo, path, base64, `Add image: ${filename}`, null, true))
+          .then(() => { setUploadStatus(''); onSuccess(`/${path}`); })
+          .catch(err  => { setUploadStatus(''); onError(err.message); });
       }
 
       function setUploadStatus(msg) {
         document.getElementById('upload-status').textContent = msg;
       }
 
-      // --- Submit ---
+      // -----------------------------------------------------------------------
+      // Submit
+      // -----------------------------------------------------------------------
 
       async function handleSubmit(e) {
         e.preventDefault();
-        if (currentMode === 'project') {
-          await publishProject();
+        if (isEditing) {
+          currentTab === 'project' ? await saveProject() : await savePost();
         } else {
-          await publishPost();
+          currentTab === 'project' ? await publishProject() : await publishPost();
         }
       }
 
+      // --- Publish new post ---
       async function publishPost() {
         const { token, repo } = getSettings();
-        if (!token || !repo) {
-          showStatus('Please fill in your GitHub settings above first.', 'error');
-          document.getElementById('settings-panel').setAttribute('open', '');
-          return;
-        }
+        if (!token || !repo) { promptSettings(); return; }
 
         const title       = document.getElementById('title').value.trim();
         const date        = document.getElementById('date').value;
@@ -668,28 +697,17 @@
         if (!body.trim()) { showStatus('Post body cannot be empty.', 'error'); return; }
 
         setPublishing(true);
-
         try {
-          const mdContent = [
-            '---',
-            `title: ${title}`,
-            `date: ${date}`,
-            description ? `description: ${description}` : null,
-            '---',
-            '',
-            body,
-          ].filter(l => l !== null).join('\n');
-
-          await ghPut(token, repo, `posts/${slug}.md`, mdContent, `Add post: ${title}`);
-
-          const { posts: currentPosts, sha: indexSha } = await fetchIndex(token, repo, 'posts/index.json');
-          const newEntry = { slug, title, date };
-          if (description) newEntry.description = description;
-          const updatedPosts = [newEntry, ...currentPosts.filter(p => p.slug !== slug)];
-          await ghPut(token, repo, 'posts/index.json', JSON.stringify(updatedPosts, null, 2) + '\n', `Update post index: add ${slug}`, indexSha);
-
+          await ghPut(token, repo, `posts/${slug}.md`, buildPostMd({ title, date, description, body }), `Add post: ${title}`);
+          const { posts, sha } = await fetchIndex(token, repo, 'posts/index.json');
+          const entry = { slug, title, date };
+          if (description) entry.description = description;
+          await ghPut(token, repo, 'posts/index.json',
+            JSON.stringify([entry, ...posts.filter(p => p.slug !== slug)], null, 2) + '\n',
+            `Update post index: add ${slug}`, sha);
           showStatus('Post published. Cloudflare will redeploy in a moment.', 'success');
-          clearForm();
+          resetForm();
+          refreshEntryList();
         } catch (err) {
           showStatus(`Error: ${err.message}`, 'error');
         } finally {
@@ -697,19 +715,50 @@
         }
       }
 
+      // --- Save edited post ---
+      async function savePost() {
+        const { token, repo } = getSettings();
+        if (!token || !repo) { promptSettings(); return; }
+
+        const title       = document.getElementById('title').value.trim();
+        const date        = document.getElementById('date').value;
+        const description = document.getElementById('description').value.trim();
+        const body        = easyMDE.value();
+        const today       = new Date().toISOString().slice(0, 10);
+
+        if (!body.trim()) { showStatus('Post body cannot be empty.', 'error'); return; }
+
+        setPublishing(true);
+        try {
+          await ghPut(token, repo, `posts/${editingSlug}.md`,
+            buildPostMd({ title, date, description, body, updated: today }),
+            `Update post: ${title}`, editingMdSha);
+          const { posts, sha } = await fetchIndex(token, repo, 'posts/index.json');
+          const idx = posts.findIndex(p => p.slug === editingSlug);
+          const entry = { ...(idx >= 0 ? posts[idx] : {}), slug: editingSlug, title, date, updated: today };
+          if (description) entry.description = description; else delete entry.description;
+          if (idx >= 0) posts[idx] = entry; else posts.unshift(entry);
+          await ghPut(token, repo, 'posts/index.json',
+            JSON.stringify(posts, null, 2) + '\n', `Update post: ${editingSlug}`, sha);
+          showStatus('Post saved. Cloudflare will redeploy in a moment.', 'success');
+          isDirty = false;
+        } catch (err) {
+          showStatus(`Error: ${err.message}`, 'error');
+        } finally {
+          setPublishing(false);
+        }
+      }
+
+      // --- Publish new project ---
       async function publishProject() {
         const { token, repo } = getSettings();
-        if (!token || !repo) {
-          showStatus('Please fill in your GitHub settings above first.', 'error');
-          document.getElementById('settings-panel').setAttribute('open', '');
-          return;
-        }
+        if (!token || !repo) { promptSettings(); return; }
 
         const title       = document.getElementById('title').value.trim();
         const date        = document.getElementById('date').value;
         const description = document.getElementById('description').value.trim();
         const tech        = document.getElementById('tech').value.trim();
-        const status      = document.getElementById('status').value;
+        const status      = document.getElementById('proj-status').value;
         const url         = document.getElementById('project-url').value.trim();
         const repoUrl     = document.getElementById('repo-url').value.trim();
         const body        = easyMDE.value();
@@ -718,39 +767,22 @@
         if (!slug) { showStatus('Could not generate a slug from the title.', 'error'); return; }
 
         setPublishing(true);
-
         try {
-          // Upload cover image first if one was picked
           const imageUrl = await uploadCoverImage(token, repo, slug);
-
-          const frontmatterLines = [
-            '---',
-            `title: ${title}`,
-            `date: ${date}`,
-            description ? `description: ${description}` : null,
-            imageUrl    ? `image: ${imageUrl}`          : null,
-            tech        ? `tech: ${tech}`               : null,
-            `status: ${status}`,
-            url         ? `url: ${url}`                 : null,
-            repoUrl     ? `repo: ${repoUrl}`            : null,
-            '---',
-            '',
-            body,
-          ].filter(l => l !== null).join('\n');
-
-          await ghPut(token, repo, `projects/${slug}.md`, frontmatterLines, `Add project: ${title}`);
-
-          const { posts: currentProjects, sha: indexSha } = await fetchIndex(token, repo, 'projects/index.json');
-          const newEntry = { slug, title, date };
-          if (description) newEntry.description = description;
-          if (imageUrl)    newEntry.image        = imageUrl;
-          if (tech)        newEntry.tech         = tech;
-          newEntry.status = status;
-          const updatedProjects = [newEntry, ...currentProjects.filter(p => p.slug !== slug)];
-          await ghPut(token, repo, 'projects/index.json', JSON.stringify(updatedProjects, null, 2) + '\n', `Update project index: add ${slug}`, indexSha);
-
+          await ghPut(token, repo, `projects/${slug}.md`,
+            buildProjectMd({ title, date, description, image: imageUrl, tech, status, url, repoUrl, body }),
+            `Add project: ${title}`);
+          const { posts: projects, sha } = await fetchIndex(token, repo, 'projects/index.json');
+          const entry = { slug, title, date, status };
+          if (description) entry.description = description;
+          if (imageUrl)    entry.image        = imageUrl;
+          if (tech)        entry.tech         = tech;
+          await ghPut(token, repo, 'projects/index.json',
+            JSON.stringify([entry, ...projects.filter(p => p.slug !== slug)], null, 2) + '\n',
+            `Update project index: add ${slug}`, sha);
           showStatus('Project published. Cloudflare will redeploy in a moment.', 'success');
-          clearForm();
+          resetForm();
+          refreshEntryList();
         } catch (err) {
           showStatus(`Error: ${err.message}`, 'error');
         } finally {
@@ -758,44 +790,137 @@
         }
       }
 
-      async function fetchIndex(token, repo, path) {
+      // --- Save edited project ---
+      async function saveProject() {
+        const { token, repo } = getSettings();
+        if (!token || !repo) { promptSettings(); return; }
+
+        const title       = document.getElementById('title').value.trim();
+        const date        = document.getElementById('date').value;
+        const description = document.getElementById('description').value.trim();
+        const tech        = document.getElementById('tech').value.trim();
+        const status      = document.getElementById('proj-status').value;
+        const url         = document.getElementById('project-url').value.trim();
+        const repoUrl     = document.getElementById('repo-url').value.trim();
+        const body        = easyMDE.value();
+        const today       = new Date().toISOString().slice(0, 10);
+
+        setPublishing(true);
         try {
-          const file = await ghGet(token, repo, path);
-          const posts = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, '')))));
-          return { posts, sha: file.sha };
-        } catch (_) {
-          return { posts: [], sha: null };
+          const newImageUrl = await uploadCoverImage(token, repo, editingSlug);
+          const imageUrl    = newImageUrl || existingImage;
+          await ghPut(token, repo, `projects/${editingSlug}.md`,
+            buildProjectMd({ title, date, description, image: imageUrl, tech, status, url, repoUrl, body, updated: today }),
+            `Update project: ${title}`, editingMdSha);
+          const { posts: projects, sha } = await fetchIndex(token, repo, 'projects/index.json');
+          const idx = projects.findIndex(p => p.slug === editingSlug);
+          const entry = { ...(idx >= 0 ? projects[idx] : {}), slug: editingSlug, title, date, updated: today, status };
+          if (description) entry.description = description; else delete entry.description;
+          if (imageUrl)    entry.image        = imageUrl;   else delete entry.image;
+          if (tech)        entry.tech         = tech;       else delete entry.tech;
+          if (idx >= 0) projects[idx] = entry; else projects.unshift(entry);
+          await ghPut(token, repo, 'projects/index.json',
+            JSON.stringify(projects, null, 2) + '\n', `Update project: ${editingSlug}`, sha);
+          showStatus('Project saved. Cloudflare will redeploy in a moment.', 'success');
+          isDirty = false;
+        } catch (err) {
+          showStatus(`Error: ${err.message}`, 'error');
+        } finally {
+          setPublishing(false);
         }
       }
+
+      // -----------------------------------------------------------------------
+      // Markdown builders
+      // -----------------------------------------------------------------------
+
+      function buildPostMd({ title, date, description, body, updated }) {
+        return [
+          '---',
+          `title: ${title}`,
+          `date: ${date}`,
+          description ? `description: ${description}` : null,
+          updated     ? `updated: ${updated}`         : null,
+          '---', '', body,
+        ].filter(l => l !== null).join('\n');
+      }
+
+      function buildProjectMd({ title, date, description, image, tech, status, url, repoUrl, body, updated }) {
+        return [
+          '---',
+          `title: ${title}`,
+          `date: ${date}`,
+          description ? `description: ${description}` : null,
+          image       ? `image: ${image}`             : null,
+          tech        ? `tech: ${tech}`               : null,
+          `status: ${status}`,
+          url         ? `url: ${url}`                 : null,
+          repoUrl     ? `repo: ${repoUrl}`            : null,
+          updated     ? `updated: ${updated}`         : null,
+          '---', '', body,
+        ].filter(l => l !== null).join('\n');
+      }
+
+      function parseFrontmatter(markdown) {
+        const match = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+        if (!match) return { meta: {}, body: markdown.trim() };
+        const meta = {};
+        match[1].split('\n').forEach(line => {
+          const colon = line.indexOf(':');
+          if (colon === -1) return;
+          meta[line.slice(0, colon).trim()] = line.slice(colon + 1).trim();
+        });
+        return { meta, body: match[2].trim() };
+      }
+
+      // -----------------------------------------------------------------------
+      // UI helpers
+      // -----------------------------------------------------------------------
 
       function setPublishing(on) {
         const btn = document.getElementById('publish-btn');
         btn.disabled = on;
-        btn.textContent = on ? 'Publishing…' : 'Publish';
+        btn.textContent = on ? 'Saving…' : (isEditing ? 'Update' : 'Publish');
         if (on) clearStatus();
       }
 
-      // --- Helpers ---
+      function promptSettings() {
+        showStatus('Please configure GitHub settings first.', 'error');
+        setTab('settings');
+      }
 
-      function clearForm() {
-        document.getElementById('title').value = '';
+      function resetForm() {
+        isEditing     = false;
+        editingSlug   = null;
+        editingMdSha  = null;
+        existingImage = null;
+        pendingCoverImageFile = null;
+        isDirty = false;
+
+        document.getElementById('title').value       = '';
+        document.getElementById('date').value        = '';
         document.getElementById('description').value = '';
-        document.getElementById('tech').value = '';
-        document.getElementById('status').value = 'In Progress';
+        document.getElementById('tech').value        = '';
+        document.getElementById('proj-status').value = 'In Progress';
         document.getElementById('project-url').value = '';
-        document.getElementById('repo-url').value = '';
+        document.getElementById('repo-url').value    = '';
         document.getElementById('cover-image-input').value = '';
         document.getElementById('cover-preview').style.display = 'none';
-        pendingCoverImageFile = null;
-        publishedCoverImageUrl = null;
+        document.getElementById('cover-upload-label').textContent = 'Click to choose a cover image';
+        document.getElementById('title').removeAttribute('readonly');
+        document.getElementById('edit-notice').classList.remove('visible');
+        document.getElementById('form-heading').textContent = currentTab === 'project' ? 'New Project' : 'New Post';
+        document.getElementById('publish-btn').textContent = 'Publish';
+        document.getElementById('slug-display').textContent = currentTab === 'project' ? 'new-project' : 'new-post';
+        document.getElementById('entry-select').value = '__new__';
+
         easyMDE.value('');
-        document.getElementById('slug-display').textContent = currentMode === 'project' ? 'my-project' : 'my-post-title';
         setTodayDate();
+        isDirty = false; // reset again after programmatic clears
       }
 
       function setTodayDate() {
-        const today = new Date().toISOString().slice(0, 10);
-        document.getElementById('date').value = today;
+        document.getElementById('date').value = new Date().toISOString().slice(0, 10);
       }
 
       function showStatus(msg, type) {
@@ -808,9 +933,13 @@
         document.getElementById('status').className = 'status';
       }
 
+      // -----------------------------------------------------------------------
       // Init
+      // -----------------------------------------------------------------------
+
       loadSettings();
       setTodayDate();
+      refreshEntryList();
     </script>
   </body>
 </html>

@@ -84,15 +84,16 @@
           // Strip frontmatter if present
           const content = markdown.replace(/^---[\s\S]*?---\r?\n/, '');
 
-          const title = meta?.title || slug;
-          const date = meta?.date ? formatDate(meta.date) : '';
+          const title   = meta?.title || slug;
+          const date    = meta?.date    ? formatDate(meta.date)    : '';
+          const updated = meta?.updated ? formatDate(meta.updated) : '';
 
           document.title = `${title} | All About the Vibes`;
 
           container.innerHTML = `
             <div class="post-header">
               <h1>${escapeHtml(title)}</h1>
-              ${date ? `<p class="post-meta">${date}</p>` : ''}
+              ${date ? `<p class="post-meta">${date}${updated ? ` &middot; Updated ${updated}` : ''}</p>` : ''}
             </div>
             <div class="prose">${marked.parse(content)}</div>
           `;
