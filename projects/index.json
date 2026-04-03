@@ -1,5 +1,14 @@
 [
   {
+    "slug": "three-word-quote",
+    "title": "Three Word Quote",
+    "date": "2026-03-31",
+    "status": "Live",
+    "description": "Simple site displaying inspirational three word messages",
+    "image": "/projects/images/three-word-quote-cover.jpeg",
+    "tech": "Vibecode"
+  },
+  {
     "slug": "songbubble",
     "title": "SongBubble",
     "date": "2026-03-28",
