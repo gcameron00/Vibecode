@@ -1,5 +1,14 @@
 [
   {
+    "slug": "sixty-four-grid",
+    "title": "Sixty Four Grid",
+    "date": "2026-04-02",
+    "status": "In Progress",
+    "description": "Experimentation in projecting pixels",
+    "image": "/projects/images/sixty-four-grid-cover.jpeg",
+    "tech": "vibecode"
+  },
+  {
     "slug": "three-word-quote",
     "title": "Three Word Quote",
     "date": "2026-03-31",
