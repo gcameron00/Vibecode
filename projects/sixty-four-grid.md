@@ -3,7 +3,7 @@ title: Sixty Four Grid
 date: 2026-04-02
 description: Experimentation in projecting pixels
 image: /projects/images/sixty-four-grid-cover.jpeg
-tech: vibecode
+tech: Vibecode
 status: In Progress
 repo: https://github.com/gcameron00/sixtyfour
 updated: 2026-04-04
