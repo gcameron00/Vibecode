@@ -1,5 +1,14 @@
 [
   {
+    "slug": "the-money",
+    "title": "The Money",
+    "date": "2026-04-05",
+    "status": "In Progress",
+    "description": "Home finance overview",
+    "image": "/projects/images/the-money-cover.jpeg",
+    "tech": "Vibecode"
+  },
+  {
     "slug": "sixty-four-grid",
     "title": "Sixty Four Grid",
     "date": "2026-04-02",
