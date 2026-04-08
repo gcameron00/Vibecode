@@ -43,7 +43,8 @@
     "description": "Workbench for solving NYT Connections puzzle",
     "image": "/projects/images/ConnectionsFrame.jpg",
     "tech": "Vibecode",
-    "status": "Live"
+    "status": "Live",
+    "updated": "2026-04-08"
   },
   {
     "slug": "svg-to-png",
