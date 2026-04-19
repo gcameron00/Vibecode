@@ -1,5 +1,14 @@
 [
   {
+    "slug": "a-game-called-spot",
+    "title": "A Game Called Spot",
+    "date": "2026-04-19",
+    "status": "Live",
+    "description": "Neighbour‘s daughter asked for a game and then described this",
+    "image": "/projects/images/a-game-called-spot-cover.jpeg",
+    "tech": "Vibecode"
+  },
+  {
     "slug": "happy-birthday",
     "title": "Happy Birthday",
     "date": "2026-04-10",
