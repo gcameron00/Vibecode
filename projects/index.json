@@ -1,5 +1,14 @@
 [
   {
+    "slug": "happy-birthday",
+    "title": "Happy Birthday",
+    "date": "2026-04-10",
+    "status": "Live",
+    "description": "A very simple, but personalised, web page as a birthday card",
+    "image": "/projects/images/happy-birthday-cover.png",
+    "tech": "Vibecode"
+  },
+  {
     "slug": "the-money",
     "title": "The Money",
     "date": "2026-04-05",
