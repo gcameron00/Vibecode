@@ -1,5 +1,14 @@
 [
   {
+    "slug": "csv-mcp",
+    "title": "CSV MCP",
+    "date": "2026-05-14",
+    "status": "Live",
+    "description": "A first MCP server, working with a folder of .csv files",
+    "image": "/projects/images/csv-mcp-cover.jpeg",
+    "tech": "vibecoded"
+  },
+  {
     "slug": "site-builder",
     "title": "Site Builder",
     "date": "2026-05-10",
