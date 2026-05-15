@@ -3,9 +3,10 @@ title: Site Builder
 date: 2026-05-10
 description: Claude Code website builder automation
 image: /projects/images/site-builder-cover.jpeg
-tech: vibecoded
+tech: Vibecode
 status: Live
 repo: https://github.com/gcameron00/site-builder
+updated: 2026-05-15
 ---
 
 I've been building a number of websites using the same flow recently. This project was to automate that process and also kick-start any site without needing to get into VS Code to request Claude to flesh out the template site.
@@ -19,4 +20,4 @@ Previously I was:
 
 This project now fully automates that. It uses the ability to notify Claude Code to pickup an Issue in a repo. Claude works on a new branch that then gets merged back into main which CloudFlare deploys. The user of Site Builder gets back the (site).pages.dev URL where CloudFlare is hosting the new Pages project.
 
-Some loose ends to tie up, but works smoothly. Added bonus that all the sites built this way can be updated from the GitHub iOS app by mentioning Claude in a new issues tagged as an 
+Some loose ends to tie up, but works smoothly. Added bonus that all the sites built this way can be updated from the GitHub iOS app by mentioning Claude in a new issues tagged as an
