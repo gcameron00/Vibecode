@@ -6,7 +6,8 @@
     "status": "Live",
     "description": "A first MCP server, working with a folder of .csv files",
     "image": "/projects/images/csv-mcp-cover.jpeg",
-    "tech": "vibecoded"
+    "tech": "Vibecode",
+    "updated": "2026-05-15"
   },
   {
     "slug": "site-builder",
