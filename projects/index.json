@@ -23,10 +23,11 @@
     "slug": "send-cheer",
     "title": "Send Cheer",
     "date": "2026-05-01",
-    "status": "In Progress",
+    "status": "Live",
     "description": "Conversion of the Happy Birthday site into a general platform allowing users to create celebrations",
     "image": "/projects/images/send-cheer-cover.jpeg",
-    "tech": "vibecoded"
+    "tech": "Vibecode",
+    "updated": "2026-05-15"
   },
   {
     "slug": "a-game-called-spot",
