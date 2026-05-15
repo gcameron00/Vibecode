@@ -1,5 +1,14 @@
 [
   {
+    "slug": "site-builder",
+    "title": "Site Builder",
+    "date": "2026-05-10",
+    "status": "Live",
+    "description": "Claude Code website builder automation",
+    "image": "/projects/images/site-builder-cover.jpeg",
+    "tech": "vibecoded"
+  },
+  {
     "slug": "send-cheer",
     "title": "Send Cheer",
     "date": "2026-05-01",
