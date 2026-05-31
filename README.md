@@ -1,7 +1,7 @@
 # All About the Vibes
 
 A blog documenting my journey with AI-based vibe coding, live at [allaboutthevibes.blog](https://allaboutthevibes.blog).
-
+ 
 ## Structure
 
 ```
