@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="vg" x1="0" y1="0" x2="84" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#e879f9"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e879f9"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <radialGradient id="bg" cx="50%" cy="40%" r="65%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#1a1535"/>
+      <stop offset="100%" stop-color="#0a0a0f"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- V-mark logo, scaled 5x, centered horizontally -->
+  <g transform="translate(390, 68) scale(5)">
+    <path d="M4,0 C-4,22 18,48 40,54 C68,64 80,16 72,0" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M6,0.5 C0,24 20,48.5 40,54 C66,62 78,18 70,1" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M8,1 C4,26 22,49 40,54 C64,60 76,20 68,2" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M10,1.5 C8,28 24,49.5 40,54 C62,58 74,22 66,3" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M12,2 C12,30 26,50 40,54 C60,56 72,24 64,4" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M14,2.5 C16,32 28,50.5 40,54 C58,54 70,26 62,5" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M16,3 C20,34 30,51 40,54 C56,52 68,28 60,6" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M18,3.5 C24,36 32,51.5 40,54 C54,50 66,30 58,7" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M20,4 C28,38 34,52 40,54 C52,48 64,32 56,8" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M22,4.5 C32,40 36,52.5 40,54 C50,46 62,34 54,9" stroke="url(#vg)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- Site title -->
+  <text x="600" y="448" text-anchor="middle" fill="white" font-size="76" font-family="system-ui, -apple-system, sans-serif" font-weight="600" letter-spacing="-1">All About the Vibes</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="530" text-anchor="middle" fill="#9ca3af" font-size="32" font-family="system-ui, -apple-system, sans-serif" font-weight="400">A blog about my journey with AI-assisted vibe coding</text>
+</svg>
