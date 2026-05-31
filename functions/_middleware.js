@@ -1,6 +1,6 @@
 const SITE_NAME = 'All About the Vibes';
 const SITE_DESCRIPTION = 'A blog about my journey with AI-assisted vibe coding';
-const DEFAULT_OG_IMAGE = '/assets/og-image.svg';
+const DEFAULT_OG_IMAGE = '/assets/og-image.png';
 
 export async function onRequest(context) {
   const { request, next } = context;
