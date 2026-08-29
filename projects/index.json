@@ -1,5 +1,14 @@
 [
   {
+    "slug": "add-blog",
+    "title": "add-blog",
+    "date": "2026-08-29",
+    "status": "Live",
+    "description": "MCP enabled blog publishing platform",
+    "image": "/projects/images/add-blog-cover.jpeg",
+    "tech": "Vibecode"
+  },
+  {
     "slug": "csv-mcp",
     "title": "CSV MCP",
     "date": "2026-05-14",
