@@ -19,6 +19,8 @@ Obviously the special feature is the ability to use the MCP server. Once configu
 
 Here's where it gets fun: I ask Claude to create a draft post about all my July workouts from Strava and it pulls the data, via their Connector, straight into a draft visible in the blog admin interface. No, I don't think you should just go ahead and publish that, but it does make it easy to kick start and have the data nicely formatted.
 
+![add-blog MCP Connector in use in Claude](/posts/images/building-the-mcp-enabled-add-blog-1788031534874.jpeg)
+
 If you have got this far maybe you are asking, is All About the Vibes using add-blog? No, not yet, add-blog doesn't yet support what it would take to migrate the All About the Vibes profile page, and certainly not the very specific way the projects on the profile page are maintained. It is on my list. 
 
 If you are interested in the documentation or code, take a look [on GitHub](https://github.com/gcameron00/add-blog).
