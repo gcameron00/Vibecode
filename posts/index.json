@@ -3,7 +3,8 @@
     "slug": "building-the-mcp-enabled-add-blog",
     "title": "Building the MCP-enabled add-blog",
     "date": "2026-08-29",
-    "description": "A CloudFlare-hosted blogging platform with its own MCP server — built to save on hosting and explore what MCP looks like in the wild."
+    "description": "A CloudFlare-hosted blogging platform with its own MCP server — built to save on hosting and explore what MCP looks like in the wild.",
+    "updated": "2026-08-29"
   },
   {
     "slug": "site-builder-single-purpose-websites",
