@@ -1,5 +1,11 @@
 [
   {
+    "slug": "coding-from-an-ipad",
+    "title": "Coding from an iPad",
+    "date": "2026-08-30",
+    "description": "After months of running my coding workflow through a Windows VM just to keep my iPad light on the road, I’ve switched to native Claude Code sessions on iOS. A look at what changed, what’s still missing (testing, mainly), and why the sandboxed setup might actually be safer than what it replaced."
+  },
+  {
     "slug": "building-the-mcp-enabled-add-blog",
     "title": "Building the MCP-enabled add-blog",
     "date": "2026-08-29",
