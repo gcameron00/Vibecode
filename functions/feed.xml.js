@@ -15,7 +15,7 @@ export async function onRequest({ request }) {
         const mdRes = await fetch(`${origin}/posts/${post.slug}.md`);
         const md = mdRes.ok ? await mdRes.text() : '';
         const body = stripFrontmatter(md);
-        const html = mdToHtml(body);
+        const html = mdToHtml(body, origin);
         return { ...post, html };
       } catch {
         return { ...post, html: '' };
@@ -82,7 +82,7 @@ function stripFrontmatter(md) {
   return md.replace(/^---[\s\S]*?---\n?/, '').trim();
 }
 
-function mdToHtml(md) {
+function mdToHtml(md, origin) {
   const lines = md.split('\n');
   const out = [];
   let i = 0;
@@ -108,7 +108,7 @@ function mdToHtml(md) {
     const hMatch = line.match(/^(#{1,4})\s+(.+)/);
     if (hMatch) {
       const level = hMatch[1].length;
-      out.push(`<h${level}>${inlineToHtml(hMatch[2])}</h${level}>`);
+      out.push(`<h${level}>${inlineToHtml(hMatch[2], origin)}</h${level}>`);
       i++;
       continue;
     }
@@ -124,7 +124,7 @@ function mdToHtml(md) {
     if (line.startsWith('> ')) {
       const quoteLines = [];
       while (i < lines.length && lines[i].startsWith('> ')) {
-        quoteLines.push(inlineToHtml(lines[i].slice(2)));
+        quoteLines.push(inlineToHtml(lines[i].slice(2), origin));
         i++;
       }
       out.push(`<blockquote><p>${quoteLines.join('<br>')}</p></blockquote>`);
@@ -135,7 +135,7 @@ function mdToHtml(md) {
     if (/^[-*]\s+/.test(line)) {
       const listItems = [];
       while (i < lines.length && /^[-*]\s+/.test(lines[i])) {
-        listItems.push(`<li>${inlineToHtml(lines[i].replace(/^[-*]\s+/, ''))}</li>`);
+        listItems.push(`<li>${inlineToHtml(lines[i].replace(/^[-*]\s+/, ''), origin)}</li>`);
         i++;
       }
       out.push(`<ul>${listItems.join('')}</ul>`);
@@ -146,7 +146,7 @@ function mdToHtml(md) {
     if (/^\d+\.\s+/.test(line)) {
       const listItems = [];
       while (i < lines.length && /^\d+\.\s+/.test(lines[i])) {
-        listItems.push(`<li>${inlineToHtml(lines[i].replace(/^\d+\.\s+/, ''))}</li>`);
+        listItems.push(`<li>${inlineToHtml(lines[i].replace(/^\d+\.\s+/, ''), origin)}</li>`);
         i++;
       }
       out.push(`<ol>${listItems.join('')}</ol>`);
@@ -166,7 +166,7 @@ function mdToHtml(md) {
       lines[i].trim() !== '' &&
       !/^(#{1,4}\s|[-*]\s|\d+\.\s|>|```|---)/.test(lines[i])
     ) {
-      paraLines.push(inlineToHtml(lines[i]));
+      paraLines.push(inlineToHtml(lines[i], origin));
       i++;
     }
     if (paraLines.length) {
@@ -177,7 +177,8 @@ function mdToHtml(md) {
   return out.join('\n');
 }
 
-function inlineToHtml(text) {
+function inlineToHtml(text, origin) {
+  const resolveUrl = (url) => (origin && url.startsWith('/') ? origin + url : url);
   return text
     // Inline code (before bold/italic to avoid conflicts)
     .replace(/`([^`]+)`/g, (_, c) => `<code>${xmlEscape(c)}</code>`)
@@ -185,8 +186,10 @@ function inlineToHtml(text) {
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     // Italic
     .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Images (must run before links, since `![alt](url)` contains `[alt](url)`)
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => `<img src="${resolveUrl(url)}" alt="${alt}">`)
     // Links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => `<a href="${resolveUrl(url)}">${label}</a>`)
     // Escape remaining bare < > (not already part of a tag)
     .replace(/&(?!amp;|lt;|gt;|quot;|#)/g, '&amp;');
 }
